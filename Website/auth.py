@@ -20,14 +20,6 @@ from flask_login import login_user, login_required, logout_user
 
 auth = Blueprint("auth", __name__)
 
-
-# @auth.route('/login', methods=['GET', 'POST'])
-# def login():
-#     data = request.form
-#     print(data)
-#     return render_template("login.html", boolean=True)
-
-
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     error = None
