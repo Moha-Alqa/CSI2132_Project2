@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+  <!-- <head>
+    <link rel="stylesheet" href="../Static/css/signup.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>Sign up</title>
+   </head> -->
+
+{% block title %} Sign Up {% endblock%} 
+
+{% block content %}
+<body>
+    <div id="container_1">
+      <br/><br/><br/>
+      {% if error%}
+      <p class=error>{{ error }}
+      {% endif %}
+        <h1 id="title">
+        Dental Clinic Registration
+      </h1><!--title-->
+      </div><!---container_1--->
+
+      <div id="container_2">
+        <form method="POST">
+        <label for ="username"> Username</label>
+          <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          class="form-control" 
+          placeholder="Insert your username">
+           <br />
+          <label for ="firstName"> First Name</label>
+            <input 
+            type="text" 
+            id="firstName" 
+            name="firstName" 
+            class="form-control" 
+            placeholder="Insert your first name">
+            <br />
+          <label for ="lastName"> Last Name</label>
+            <input 
+            type="text" 
+            id="lastName" 
+            name="lastName" 
+            class="form-control" 
+            placeholder="Insert your last name">
+            <br />
+          <label for="email">Email</label>
+            <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-control" 
+            placeholder="Insert email">
+            <br />
+          <label for="password1">Password</label>
+            <input 
+            type="password" 
+            id="password1" 
+            name="password1" 
+            class="form-control" 
+            placeholder="Insert password">
+            <br />
+          <label for="password2">Confirm Password</label>
+            <input 
+            type="password" 
+            id="password2" 
+            name="password2" 
+            class="form-control" 
+            placeholder="Confirm password">
+            <br />
+          <label for="phoneNum">Phone Number</label>
+            <input 
+            type="tel" 
+            id="phoneNum" 
+            name="phoneNum" 
+            class="form-control" 
+            placeholder="Insert phone number">
+            <br />
+          <label for="SSN">SSN</label>
+            <input 
+            type="number" 
+            id="SSN" 
+            name="SSN" 
+            class="form-control" 
+            placeholder="Insert SSN">
+            <br />
+          <label for="insurance">Insurance (If any)</label>
+            <input 
+            type="text" 
+            id="insurance" 
+            name="insurance" 
+            class="form-control" 
+            placeholder="Insert insurance">
+            <br />
+          <label for="salary">Salary (For employees only))</label>
+            <input 
+            type="text" 
+            id="salary" 
+            name="salary" 
+            class="form-control" 
+            placeholder="Insert salary">
+            <br />
+          <label for = "age"> Age</label>
+          <input 
+            type="text" 
+            id="age" 
+            name="age" 
+            class="form-control" 
+            placeholder="Insert age">
+            <br />
+          <label id="role">Role</label>
+          <select id="dropdown" name="role" required>
+            <option disabled selected value>
+            </option>
+            <option value "role">
+              Receptionist
+            </option>
+            <option value "role">
+              Dentist
+            </option>
+            <option value "role">
+                Patient
+              </option>
+          </select>
+          <br />
+          <label id="gender">Gender</label>
+          <select id="dropdown" name="gender" required>
+            <option disabled selected value>
+            </option>
+            <option value "gender">
+              Male
+            </option>
+            <option value "gender">
+              Female
+            </option>
+            <option value "gender">
+                Other
+              </option>
+        </select>
+
+
+        <br /><br/><br />
+        <div id="container_3"> <!---container_3--->
+          <h3 id="title">
+            Address
+          </h3>
+        <label for="houseNum">House Number</label>
+          <input 
+          type="text" 
+          id="houseNum" 
+          name="houseNum" 
+          class="form-control" 
+          placeholder="Insert house number">
+          <br />
+        <label for="streat">Streat</label>
+          <input 
+          type="text" 
+          id="streat" 
+          name="streat" 
+          class="form-control" 
+          placeholder="Insert streat">
+          <br />
+        <label for="city">City</label>
+          <input 
+          type="text" 
+          id="city" 
+          name="city" 
+          class="form-control" 
+          placeholder="Insert city">
+          <br />
+        <label for="province">Province</label>
+          <input 
+          type="text" 
+          id="province" 
+          name="province" 
+          class="form-control" 
+          placeholder="Insert province">
+          <br />
+        </div>
+
+
+        <!---needs to be included in base.html such that each template does not have this code block repeatedly-->
+        <!-- {% with messages = get_flashed_messages(with_categories=true)%}
+        {%if messages%}
+        {%for category, message in messages%}
+
+        {%if category == 'error'%}
+        <div class = "alert alert-danger alert-dismissable fade show" role = "alert">
+          {{message}}
+          <button type = "button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {%else%}
+          <div class = "alert alert-success alert-dismissable fade show" role = "alert">
+            {{message}}
+            <button type = "button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {%endif%}
+        {%endfor%}
+        {%endif%}
+        {% endwith%} -->
+
+
+       <!---# Need other attributes too such as password confirm password and almost everything else in database.--> 
+
+        <button 
+          type="submit" 
+          class="btn btn-primary">Submit
+        </button>
+          <br /><br/><br/><br/><br/>
+        </form><!---survey-form--->
+      </div><!--container_2--->
+</body>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %} Home {% endblock%} {% block content
+%}
+
+<br/><br/><br/>
+<h1><center>Welcome to Dentain!</center></h1>
+    <!-- <img class="img-logo" src="/Users/moha/Desktop/uOttawa/CSI2132/Project/CSI2132_Project/Images/logo.jpeg"> Doesnt work -->
+<br/><br/>
+
+<body>
+  <button
+    class="btn btn-primary btn-lg btn-block"
+    onclick="window.location.href = '/signup'">
+    Sign Up
+  </button>
+  <br/>
+  <button
+    class="btn btn-secondary btn-lg btn-block"
+    onclick="window.location.href = '/login'">
+    Login
+  </button>
+</body>
+{% endblock %}

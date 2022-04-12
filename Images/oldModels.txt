@@ -1,0 +1,169 @@
+from email.policy import default
+from . import db
+from flask import UserMixin
+from sqlalchemy import func
+
+class Patient(db.Model):
+    Patient_ID = db.Column(db.Integer, primary_key=True)
+    Patient_name = db.Column(db.String(50), nullable=False)
+    Date_of_birth = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
+    Age = db.Column(db.Integer, nullable=False)
+    Gender = db.Column(db.String(20), nullable=False)
+    Street_num = db.Column(db.Integer, db.ForeignKey('Street_num'), nullable=False)
+    Street_name = db.Column(db.String(100), db.ForeignKey('Street_name'), nullable=False)
+    Postal_code= db.Column(db.String(20), db.ForeignKey('Postal_code'), nullable=False)
+    City= db.Column(db.String(100), nullable=False, nullable=False)
+    Province= db.Column(db.String(50), nullable=False, nullable=False)
+    SSN = db.Column(db.Integer, unique=True, index=True, nullable=False)
+    Insurance= db.Column(db.String(50))
+    Phone_num = db.Column(db.Integer(), index=True, nullable=False)
+    Email= db.Column(db.String(100), index=True, unique=True, nullable=False)
+    appointment = db.relationship('Appointment', backref='patient') 
+    payments = db.relationship('Payment', backref='patient')
+    review = db.relationship('Review', backref='patient', uselist=False) 
+    record = db.relationship('Record', backref='patient', uselist=False) 
+
+
+class Apointment(db.Model, UserMixin):
+    Appointment_ID = db.Column(db.Integer, primary_key=True)
+    Patient_ID = db.Column(db.Integer, db.ForeignKey('Patient_ID'), nullable=False)
+    Patient_name = db.Column(db.String(50), nullable=False)
+    Branch = db.Column(db.String(20), nullable=False)
+    Dentist_identifier = db.Column(db.String(50), nullable=False)
+    Appointment_type = db.Column(db.String(50), nullable=False)
+    Status= db.Column(db.String(50), nullable=False)
+    Room_assigned = db.Column(db.Integer)
+    Date = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
+    Start_time = db.Column(db.Time)
+    End_time = db.Column(db.Time)
+    patient = db.relationship('Patient')
+    dentist = db.relationship('Dentist')
+    treatments = db.relationship('Treatment', bakcref='appointment')
+    feeCharge = db.relationship('feeCharge', bakcref='appointment', uselist=False)
+
+
+class Addresses(db.Model, UserMixin):
+    Street_num = db.Column(db.Integer, primary_key=True, nullable=False)
+    Street_name = db.Column(db.String(100), primary_key=True, nullable=False)
+    Postal_code= db.Column(db.String(20), primary_key=True, nullable=False)
+    City = db.Column(db.String(50), nullable=False)
+    Province= db.Column(db.String(50), nullable=False)
+
+
+class Payment(db.Model, UserMixin):
+    Bill_ID = db.Column(db.Integer, primary_key=True)
+    Patient_ID = db.Column(db.Integer, db.ForeignKey('Patient_ID'), nullable=False)
+    Appointment_ID = db.Column(db.Integer, db.ForeignKey('Appointment_ID'), nullable=False)
+    Procedure_ID = db.Column(db.Integer, nullable=False)
+    Patient_charge = db.Column(db.Float, nullable=False)
+    Insurance_charge = db.Column(db.Float)
+    Insurance_claim_ID = db.Column(db.Integer)
+    Payment_type = db.Column(db.String(50), nullable=False)
+    patient = db.relationship('Patient')
+
+
+class User(db.Model, UserMixin):
+    Username = db.Column(db.String(60), index = True, unique=True, nullable=False)
+    Password= db.Column(db.String(20), nullable=False)
+    User_name = db.Column(db.String(50), index = True, nullable=False)
+    User_type = db.Column(db.String(50), nullable=False)
+
+
+class Review(db.Model, UserMixin):
+    Employees_professionalism = db.Column(db.String(100))
+    Value = db.Column(db.Integer)
+    Communication = db.Column(db.String(100))
+    Cleanliness = db.Column(db.String(100))
+    patientId = db.Column(db.Integer, db.ForeignKey('patient_ID'), nullable=False)
+      
+
+class Employee(db.Model, UserMixin):
+    Employee_ID = db.Column(db.Integer, primary_key=True)
+    Employee_role = db.Column(db.String(50), nullable=False)
+    Employee_type = db.Column(db.String(50), nullable=False)
+    Employee_name = db.Column(db.String(50), nullable=False)
+    Date_of_birth = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
+    Age = db.Column(db.Integer, nullable=False) 
+    Role = db.Column(db.String(30), nullable=False)
+    Gender = db.Column(db.String(50), nullable=False)
+    Street_num  = db.Column(db.Integer, db.ForeignKey('Street_num'), nullable=False)
+    Street_name = db.Column(db.String(50), db.ForeignKey('Street_name'), nullable=False)
+    Postal_code = db.Column(db.String(50), db.ForeignKey('Postal_code'), nullable=False)
+    City = db.Column(db.String(50),nullable=False)
+    Province = db.Column(db.String(50), nullable=False)
+    SSN = db.Column(db.Integer, unique=True, index=True, nullable=False)
+    Insurance = db.Column(db.String(50))
+    Salary = db.Column(db.Float, default=0.00)
+    Phone_num = db.Column(db.Integer, index=True, nullable=False)
+    Email = db.Column(db.String(100), index=True, unique=True, nullable=False)
+    managesBranch = db.Column(db.Integer, db.ForeignKey('branch.branchId')) 
+    worksInBranch = db.relationship('Branch', backref='employee') 
+
+
+class Treatment(db.Model, UserMixin):
+    Appointment_ID = db.Column(db.Integer, db.ForeignKey('Appointment_ID'))
+    Appointment_type= db.Column(db.String(50), nullable=False)
+    Treatment_type = db.Column(db.String(50), nullable=False)
+    Medication = db.Column(db.String(50))
+    Symptoms = db.Column(db.String(100), nullable=False)
+    Tooth =  db.Column(db.String(50), nullable=False)
+    Comments = db.Column(db.String(200))
+    Patient_condition = db.Column(db.String(50))
+    comments = db.relationship('Comment', backref='treatment')
+    payments = db.relationship('Tooth', backref='treatment')
+    procedure = db.relationship('Procedure', backref='treatment', uselist=False)
+
+class Fee_Charge(db.Model, UserMixin):
+    feeChargeId = db.Column(db.Integer, primary_key=True)
+    Appointment_ID = db.Column(db.Integer, db.ForeignKey('Appointment_ID'), nullable=False)
+    Fee_code = db.Columndb.Column(db.Integer, index=True, unique=True, nullable=False)
+    Charge = db.Column(db.Numeric(2), default=0.00)
+    invoice = db.relationship('invoice', bakcref='feeCharge', uselist=False) 
+
+class Branch(db.Model, UserMixin):
+    branchId = db.Column(db.Integer, primary_key=True)
+    City = db.Column(db.String(50), nullable=False)
+    Location = db.Column(db.String(20), nullable=False)
+    Num_of_employees = db.Column(db.Integer, default=0, nullable=False)
+    Branch_manager = db.Column(db.String(50), default=0)
+    employees = db.relationship('Employee', backref='branch') 
+
+class Record(db.Model, UserMixin):
+    Patient_ID = db.Column(db.Integer, db.ForeignKey('Patient_ID'), nullable=False)
+    Progress_notes = db.Column(db.String(50))
+    Date_edited  = db.Column(db.DateTime(timezone=True), default=func.now())
+    patient = db.relationship('Patient')
+    progressNotes = db.relationship('ProgressNote', backref='Record')
+
+class Appointment_Procedure(db.Model, UserMixin):
+    Appointment_ID = db.Column(db.Integer, db.ForeignKey('Appointment_ID'))
+    Patient_ID = db.Column(db.Integer, db.ForeignKey('Patient_ID'))
+    Invoice_ID = db.Column(db.Integer, db.ForeignKey('Invoice_ID'))
+    Procedure_code = db.Columndb.Column(db.Integer, index=True, unique=True, nullable=False)
+    Procedure_type =  db.Column(db.String(50), nullable=False)
+    Procedure_description =  db.Column(db.String(50), nullable=False)
+    Amount_of_procedures = db.Column(db.Integer)
+    Total_charge = db.Column(db.Float)
+    Date = db.Column(db.DateTime(timezone=True), default=func.now())
+    Insurance_claim_ID = db.Column(db.Integer, index=True, unique=True)
+    appointment = db.relationship('Appointment')
+
+
+class Invoice(db.Model, UserMixin):
+    Invoice_ID = db.Column(db.Integer, primary_key=True)
+    Appointment_ID = db.Column(db.Integer, db.ForeignKey('Appointment_ID'))
+    Date_of_issue  = db.Column(db.DateTime(timezone=True), default=func.now())
+    Patient_charge = db.Column(db.Numeric(2), default=0.00)
+    Insurance_charge = db.Column(db.Numeric(2), default=0.00)
+    Discount  = db.Column(db.Numeric(2), default=0.00)
+    Penalty = db.Column(db.Numeric(2), default=0.00)
+    Insurance_claim_ID= db.Column(db.Integer)
+    Email= db.Column(db.String(100), index=True, unique=True)
+    Phone = db.Column(db.Integer, index=True)
+    payment = db.relationship('Payment', backref='invoice', uselist=False)
+ 
+# WE SHOULD STICK TO THE ER DIAGRAM, BUT WE CAN STILL KEEP THIS 
+class ProgressNote(db.model):
+    noteId = db.Column(db.Integer, primary_key=True)
+    note = db.Column(db.String(150), nullable=False) 
+    recordId = db.Column(db.Integer, db.ForeignKey('record.recordId')) 

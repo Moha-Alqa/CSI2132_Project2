@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+<!-- <head>
+  <link rel="stylesheet" src="{{url_for('static',filename='css/login.css')}}"
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" /
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <title>{% block title %} Login {% endblock%}</title>
+</head>
+
+
+<body> -->
+
+  {% block content %}
+  <br/><br/><br/>
+  {% if error %}
+  <p class=error>{{ error }}
+  {% endif %}
+  <h1 class = "title" align ="center"> Welcome to Dental Clinic </h1>
+  <div class="main">
+    <form id="survey-form", method=post>
+    <h4 class="sign" align="center">Login</h4>
+    <form class="form1">
+      <!-- <input class="un " type="text" align="center" placeholder="Username">
+      <input class="pass" type="password" align="center" placeholder="Password"> -->
+    <label for ="username"> Username</label>
+      <input 
+      type="text" 
+      id="username" 
+      name="username" 
+      class="form-control" 
+      placeholder="Insert your username">
+      <br />
+    <label for="password">Password</label>
+      <input 
+      type="password" 
+      id="password" 
+      name="password" 
+      class="form-control" 
+      placeholder="Insert password">
+      <br />
+      <button type="submit" class="btn btn-primary">Login</button>  
+    </div>
+  </form>
+    {% endblock %}
+
+
+<!-- </body> -->
+<!-- </html> -->

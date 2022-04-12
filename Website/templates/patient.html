@@ -1,0 +1,144 @@
+{% extends "base.html" %} {% block title %} Patient {% endblock%} {% block
+content %}
+<html> 
+	<p>
+        <h1 class = "title" align ="center">Welcome to the Patient Page!</h1>
+    </p>
+    <style>
+
+        .title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 36px;
+            text-align: center;
+            border: 10px solid navy;
+            padding: 10px;
+        }
+
+        .img {
+            width: 300px;
+            border-radius: 10px;
+            float: middle;
+            margin-bottom: 10px;
+        }
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 10px;
+        }
+        .accessHere {
+            font-weight: bold;
+        } 
+        .upcomingAppointment {
+            font-weight: bold; 
+            
+
+        }
+        .searchDentist {
+            font-weight: bold; 
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        form.searchBox input[type=text] {
+            padding: 7px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+        }
+        form.searchBox button {
+            float: left;
+            width: 20%;
+            padding: 7px;
+            background: navy;
+            color: white;
+            font-size: 17px;
+            border: 1px solid navy;
+            border-left: none;
+            cursor: pointer;
+        }
+        form.searchBox button:hover {
+            background: blue;
+        }
+
+        form.search::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
+    <br/>
+     <body>
+        <img src = "images/PatientPicture.jpg">
+    </body>
+    
+    <br/>
+    <p>
+        <label class = "accessHere">Access Medical History Here</label>
+    </p>
+
+    <div class="astatus">
+        <p>
+        <table border="1">
+            <tr>
+                <th>Record ID</th>
+                <th>Patient ID</th>
+                <th>Date Edited
+                    <input type="date" id="birthday" name="birthday"></th>
+                <th>Progress Notes</th>
+  
+
+            </tr>
+            {% for update for patient %}
+            <tr>
+                <td> {{ update.recordID }} </td>
+                <td> {{ update.patientID }} </td>
+                <td> {{ update.dateEdited }} </td>
+                <td> {{ update.progressNotes }} 
+            </tr>
+        </table>
+    
+        <form action="{{ url_for('patientscreen') }}">
+        <button type="submit" class="ibutton" value="Refresh Record">Refresh Your Record</button>
+        </form>
+    </p>
+    </div>
+
+    <body>
+        <p>
+            <label class = "upcomingAppointment">Check Upcoming Appointment(s)</label>
+        </p>
+    </body>
+
+        <div class="astatus">
+            <p>
+            <table border="1">
+                <tr>
+                    <th>Dentist Name </th>
+                    <th>Appointment Date</th>
+                    <th>Start Date</th>
+                    <th>End Time</th>
+        
+                    </tr>
+                    {% for update for patient %}
+                    <tr>
+                    <td> <form class="searchBox" action="/action_page.php" style="margin:auto;max-width:300px">
+                        <input type="text" placeholder="Search..." name="search2">
+                        <button type="Enter" class="btn btn-primary">Enter</button>  
+                        </form> </td>
+                    <td> {{ update.appointmentDate }} </td>
+                    <td> {{ update.startDate }} </td>
+                    <td> {{ update.EndTime }} 
+                </tr>
+            </table>
+
+                <form action="{{ url_for('patientscreen') }}">
+                <button type="submit" class="ibutton" value="Refresh Appointment">Refresh Your Appointment</button>
+                </form>
+            </p>
+        </div>
+</html>
+
+{% endblock %}
