@@ -33,7 +33,7 @@ def login():
         if role == "Patient":
             user = Patient.query.filter_by(username=username).first()
             if user:
-                if check_password_hash(Patient.password, password):
+                if check_password_hash(user.password, password):
                     return redirect(url_for("views.patient"))
                 else:
                     flash("Incorrect password, try again")
@@ -41,13 +41,11 @@ def login():
             user = Employee.query.filter_by(username=username).first()
 
             if user:
-                if Employee.role == "Dentist" and check_password_hash(
-                    Employee.password, password
-                ):
+                if check_password_hash(user.password, password
+                ) and Employee.role == "Dentist":
                     return redirect(url_for("views.dentist"))
-                elif Employee.role == "Receptionist" and check_password_hash(
-                    Employee.password, password
-                ):
+                elif check_password_hash(user.password, password
+                ) and Employee.role == "Receptionist":
                     return redirect(url_for("views.receptionist"))
                 else:
                     flash("Incorrect password, try again")
@@ -77,7 +75,7 @@ def signup():
         gender = request.form.get("gender")
         age = request.form.get("age")
         houseNum = request.form.get("houseNum")
-        streat = request.form.get("streat")
+        street = request.form.get("street")
         province = request.form.get("province")
         city = request.form.get("city")
 
@@ -109,7 +107,7 @@ def signup():
             message = "Insurance name must be greater than 2 characters and includes numbers or characters"
         elif len(houseNum) < 2:
             message = "House number name must be greater than 2 characters"
-        elif len(streat) < 2:
+        elif len(street) < 2:
             message = "Streat must be greater than 2 characters"
         elif len(city) < 2 or not (city.isalpha()):
             message = "City name must be greater than 2 characters and includes only characters"
@@ -130,7 +128,7 @@ def signup():
                     insurance=insurance,
                     age=age,
                     houseNum=houseNum,
-                    streat=streat,
+                    street=street,
                     city=city,
                     province=province,
                 )
@@ -157,7 +155,7 @@ def signup():
                         SSN=SSN,
                         insurance=insurance,
                         houseNum=houseNum,
-                        streat=streat,
+                        street=street,
                         city=city,
                         province=province,
                     )
