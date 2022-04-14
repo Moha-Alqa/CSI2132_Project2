@@ -33,7 +33,8 @@ def login():
         if role == "Patient":
             user = Patient.query.filter_by(username=username).first()
             if user:
-                if check_password_hash(Patient.password, password):
+                if check_password_hash(user.password, password):
+                    flash("Logged in successfully")
                     return redirect(url_for("views.patient"))
                 else:
                     flash("Incorrect password, try again")
@@ -41,13 +42,16 @@ def login():
             user = Employee.query.filter_by(username=username).first()
 
             if user:
-                if Employee.role == "Dentist" and check_password_hash(
-                    Employee.password, password
+                if (
+                    check_password_hash(user.password, password)
+                    and Employee.role == "Dentist"
                 ):
                     return redirect(url_for("views.dentist"))
-                elif Employee.role == "Receptionist" and check_password_hash(
-                    Employee.password, password
+                elif (
+                    check_password_hash(user.password, password)
+                    and Employee.role == "Receptionist"
                 ):
+                    flash("Logged in successfully")
                     return redirect(url_for("views.receptionist"))
                 else:
                     flash("Incorrect password, try again")
