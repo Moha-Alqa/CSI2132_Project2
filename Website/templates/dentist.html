@@ -1,3 +1,5 @@
+{% extends "base.html" %} {% block title %} Dentist {% endblock%} {% block
+  content %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,7 +73,6 @@
                 background-color: white;
                 color:rgb(29, 51, 89);
                 border-radius: 15px;
-                
             }
             .signOutButton:hover{
                 background-color: rgb(29, 51, 89);
@@ -96,20 +97,24 @@
     <body>
 
       <div class="topnav">
-        <input type="text" placeholder="Search Patient...">
+          <form action="http://127.0.0.1:5000/dentistViewRecord">
+            <input type="text" placeholder="Search Patient...">
+        </form>
       </div>
 
         <div class="headerDiv">
             <h2>WELCOME TO DENTIST PAGE</h3>
-              <button type="submit" class="signOutButton">Sign Out</button>
+              <form action="http://127.0.0.1:5000/login">
+                <button type="submit" class="signOutButton">Sign Out</button>
             </form>
         </div>
         <div class="buttonDiv">
-            </form>
+            </form action="http://127.0.0.1:5000/dentistViewAppointment">
                 <button type="submit" class="optionButton">Upcoming Appointments</button>
-            </form>
-                <button type="submit" class="optionButton">Procedures</button>
+            </form action="http://127.0.0.1:5000/dentistViewProcedure">
+                <button type="submit" class="optionButton">Appointment Procedures</button>
         </div>
     </body>
 </html>
 
+{% endblock %}
