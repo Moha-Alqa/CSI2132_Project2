@@ -38,9 +38,26 @@
       name="password" 
       class="form-control" 
       placeholder="Insert password">
+     
       <br />
-      <button type="submit" class="btn btn-primary">Login</button>  
-    </div>
+    <label id="role">Role</label>
+          <select id="dropdown" name="role" required>
+            <option disabled selected value>
+            </option>
+            <option value "role">
+              Receptionist
+            </option>
+            <option value "role">
+              Dentist
+            </option>
+            <option value "role">
+                Patient
+              </option>
+          </select>
+
+          <br />
+          <button type="submit" class="btn btn-primary">Login</button>  
+        </div>
   </form>
     {% endblock %}
 

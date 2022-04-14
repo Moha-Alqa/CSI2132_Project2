@@ -16,45 +16,45 @@ from .models import Patient, Employee
 
 from Website import models
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import LoginManager
+
 
 auth = Blueprint("auth", __name__)
 
+
 @auth.route("/login", methods=["GET", "POST"])
 def login():
-    error = None
     if request.method == "POST":
-        email = request.form.get("email")
+        username = request.form.get("username")
         password = request.form.get("password")
         role = request.form.get("role")
 
-        if role == Patient:
-            user = Patient.query.filter_by(email=email).first()
+        if role == "Patient":
+            user = Patient.query.filter_by(username=username).first()
             if user:
                 if check_password_hash(Patient.password, password):
-                    return url_for(views.patient)
+                    return redirect(url_for("views.patient"))
                 else:
-                    message("Incorrect password, try again")
-        elif role == Employee:
-            user = Employee.query.filter_by(email=email).first()
+                    flash("Incorrect password, try again")
+        elif role == "Dentist" or role == "Receptionist":
+            user = Employee.query.filter_by(username=username).first()
 
             if user:
-                if (
-                    check_password_hash(Employee.password, password)
-                    and Employee.role == "Dentist"
+                if Employee.role == "Dentist" and check_password_hash(
+                    Employee.password, password
                 ):
-                    return redirect(url_for(views.dentist))
-                elif (
-                    check_password_hash(Employee.password, password)
-                    and Employee.role == "Receptionist"
+                    return redirect(url_for("views.dentist"))
+                elif Employee.role == "Receptionist" and check_password_hash(
+                    Employee.password, password
                 ):
-                    return redirect(url_for(views.receptionist))
+                    return redirect(url_for("views.receptionist"))
                 else:
-                    message = "Incorrect password, try again"
+                    flash("Incorrect password, try again")
         else:
-            message = "User does not exist"
+            flash("User does not exist")
 
-    return render_template("login.html", error=error)
+    return render_template("login.html")
 
 
 @auth.route("/signup", methods=["GET", "POST"])
@@ -100,15 +100,17 @@ def signup():
         elif password1 != password2:
             message = "Passwords must match"
         elif len(phoneNum) < 2 or not (phoneNum.isnumeric()):
-            message = ("Phone number must be greater than 2 numbers and only includes numbers")
+            message = (
+                "Phone number must be greater than 2 numbers and only includes numbers"
+            )
         elif len(SSN) < 2 or not (SSN.isnumeric()):
             message = "SSN must be greater than 2 numbers and only includes numbers"
         elif len(insurance) < 2 or not (insurance.isalnum()):
             message = "Insurance name must be greater than 2 characters and includes numbers or characters"
-        elif len(houseNum) < 2 or not (houseNum.isalnum()):
-            message = "House number name must be greater than 2 characters and includes numbers or characters"
-        elif len(streat) < 2 or not (streat.isalnum()):
-            message = "Streat must be greater than 2 characters and includes numbers or characters"
+        elif len(houseNum) < 2:
+            message = "House number name must be greater than 2 characters"
+        elif len(streat) < 2:
+            message = "Streat must be greater than 2 characters"
         elif len(city) < 2 or not (city.isalpha()):
             message = "City name must be greater than 2 characters and includes only characters"
         elif len(province) < 2 or not (province.isalpha()):
@@ -134,11 +136,13 @@ def signup():
                 )
                 db.session.add(new_user)
                 db.session.commit()
-                message = "Account Created Successfully"
+                flash("Account Created Successfully")
                 return redirect(url_for("auth.login"))
             else:
                 if len(salary) < 1 or not (salary.isnumeric()):
-                    message = "Salary must be greater than 1 number and only includes numbers"
+                    flash(
+                        "Salary must be greater than 1 number and only includes numbers"
+                    )
                 else:
                     new_user = Employee(
                         username=username,
@@ -159,15 +163,17 @@ def signup():
                     )
                     db.session.add(new_user)
                     db.session.commit()
-                    message = "Account Created Successfully"
+                    flash("Account Created Successfully")
                     return redirect(url_for("auth.login"))
 
     return render_template("signup.html", error=message)
+
 
 @auth.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for(views.home))
+
 
 # if __name__ == "__main__":
