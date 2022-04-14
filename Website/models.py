@@ -24,6 +24,7 @@ class Patient(db.Model, UserMixin):
     lastName = db.Column(db.String(30), nullable=False)
     phoneNum = db.Column(db.Integer, nullable=False)
     SSN = db.Column(db.Integer, nullable=False)
+    role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     # dob = db.Column(db.Date, nullable=True)
     age = db.Column(db.Numeric(2))

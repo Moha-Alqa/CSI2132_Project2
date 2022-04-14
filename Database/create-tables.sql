@@ -2,7 +2,7 @@
 CREATE TABLE Patient(
     Patient_ID int(9) PRIMARY KEY,
     Email VARCHAR(30) NOT NULL,
-    `Password` VARCHAR(30) NOT NULL,
+    Password VARCHAR(30) NOT NULL,
     First_name VARCHAR(30) NOT NULL,
     Last_name VARCHAR(30) NOT NULL,
   	Phone_num int(10) NOT NULL,
