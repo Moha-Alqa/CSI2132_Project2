@@ -264,12 +264,12 @@ INSERT INTO 'Appointment'('Appointment_ID', 'Branch_ID', 'Dentist_identifier',
 INSERT INTO 'Appointment_Procedure'('Appointment_ID', 'Patient_ID', 'Invoice_ID', 'Procedure_code', 'Procedure_type', 'Procedure_description',
     'Amount_of_procedures', 'Total_charge', 'Appointment_date', 'Insurance_claim_ID')
             VALUES ('987654567', '892463789', '345984356', '987634021', 'Veneers', 'custom-made shells of tooth-colored materials that covers surface of teeth to improve appearance',
-                    '2', '10000', '2022-01-19', '183760987')
+                    '2', '10000', '2022-01-19', '183760987');
                     
 INSERT INTO 'Appointment_Procedure'('Appointment_ID', 'Patient_ID', 'Invoice_ID', 'Procedure_code', 'Procedure_type', 'Procedure_description',
     'Amount_of_procedures', 'Total_charge', 'Appointment_date', 'Insurance_claim_ID')
             VALUES ('44789199', '763290987', '4829130876', '987634021', 'Teeth Cleaning', 'the removal of dental plaque from teeth with the intention of preventing tooth damage.',
-                    '2', '10000', '2022-01-19', '183760987')
+                    '2', '10000', '2022-01-19', '183760987');
                                     
   	
 SELECT * FROM Patient;
