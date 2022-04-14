@@ -112,7 +112,8 @@
             class="form-control" 
             placeholder="Insert age">
             <br />
-          <label id="role">Role</label>
+
+          <!-- <label id="role">Role</label>
           <select id="dropdown" name="role" required>
             <option disabled selected value>
             </option>
@@ -126,21 +127,45 @@
                 Patient
               </option>
           </select>
-          <br />
-          <label id="gender">Gender</label>
-          <select id="dropdown" name="gender" required>
-            <option disabled selected value>
-            </option>
-            <option value "gender">
-              Male
-            </option>
-            <option value "gender">
-              Female
-            </option>
-            <option value "gender">
-                Other
-              </option>
-        </select>
+          <br /> -->
+
+
+          <!-- <label id="role">Role</label>
+            <input list="roles" name="role" placeholder="Role"/></label>
+            <datalist id="role">
+              <option value="Patient">
+              <option value="Dentist">
+              <option value="Receptionist">
+            </datalist>
+            <br />
+
+            <label id="gender">Gender</label>
+            <input list="gendres" name="gender" placeholder="Gender"/></label>
+            <datalist id="gender">
+              <option value="Male">
+              <option value="Female">
+              <option value="Other">
+            </datalist>
+            <br /> -->
+
+
+          <label id="role">Role</label>
+            <input list="roles" name="role" placeholder="Roles"/></label>
+            <datalist id="roles">
+              <option value="Patient">
+              <option value="Dentist">
+              <option value="Receptionist">
+            </datalist>
+            <br /><br/>
+
+            <label id="gender">Gender</label>
+            <input list="genders" name="gender" placeholder="Gender"/></label>
+            <datalist id="genders">
+              <option value="Male">
+              <option value="Femal">
+              <option value="Other">
+            </datalist>
+            <br />
 
 
         <br /><br/><br />

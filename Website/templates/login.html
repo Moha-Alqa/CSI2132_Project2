@@ -38,24 +38,17 @@
       name="password" 
       class="form-control" 
       placeholder="Insert password">
-     
       <br />
-    <label id="role">Role</label>
-          <select id="dropdown" name="role" required>
-            <option disabled selected value>
-            </option>
-            <option value "role">
-              Receptionist
-            </option>
-            <option value "role">
-              Dentist
-            </option>
-            <option value "role">
-                Patient
-              </option>
-          </select>
+      
+      <label id="role">Role</label>
+      <input list="roles" name="role" placeholder="Role"/></label>
+      <datalist id="roles">
+        <option value="Patient">
+        <option value="Dentist">
+        <option value="Receptionist">
+      </datalist>
+      <br />
 
-          <br />
           <button type="submit" class="btn btn-primary">Login</button>  
         </div>
   </form>
