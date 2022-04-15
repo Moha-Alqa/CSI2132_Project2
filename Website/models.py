@@ -27,7 +27,7 @@ class Patient(db.Model, UserMixin):
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     # dob = db.Column(db.Date, nullable=True)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     gender = db.Column(db.String(10), nullable=False)
     houseNum = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
@@ -53,18 +53,17 @@ class Employee(db.Model, UserMixin):
     lastName = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), nullable=False, unique=True)
     password = db.Column(db.String(30), nullable=False)
-
     phoneNum = db.Column(db.Integer, nullable=False)
     SSN = db.Column(db.Integer, nullable=False)
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     salary = db.Column(db.Numeric(2), default=0.00)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     # dob = db.Column(db.Date, nullable=True)
     # signUpDate = db.Column(db.Date, default=func.now())   Automaticall creates dates of for us
     gender = db.Column(db.String(10), nullable=False)
     houseNum = db.Column(db.String(30), nullable=False)
-    streat = db.Column(db.String(30), nullable=False)
+    street = db.Column(db.String(30), nullable=False)
     province = db.Column(db.String(30), nullable=False)
     city = db.Column(db.String(30), nullable=False)
     # managesBranch = db.Column(db.Integer, db.ForeignKey('branch.branchId')) #$$$ one to one. Can be null, IDK CHECK IF CAUSES ERROR
@@ -78,7 +77,7 @@ class Branch(db.Model):
     branchId = db.Column(db.Integer, primary_key=True)
     employeesNum = db.Column(db.Integer, nullable=False, default=0)
     houseNum = db.Column(db.String(30), nullable=False)
-    streat = db.Column(db.String(30), nullable=False)
+    street = db.Column(db.String(30), nullable=False)
     city = db.Column(db.String(30), nullable=False)
     province = db.Column(db.String(30), nullable=False)
     # branchManager = db.relationship('Employee', backref='branch') # one to one
@@ -90,19 +89,18 @@ class Branch(db.Model):
 class Appointment(db.Model):
     appointmentId = db.Column(db.Integer, primary_key=True)
     branch = db.Column(db.String(30), nullable=False)
-    dentistIdneitifier = db.Column(
-        db.String(30), nullable=False
+    dentistIdentifier = db.Column(
+        db.String(30)
     )  # Maybe int? not sure if thats id or what
     appointmentType = db.Column(db.String(30), nullable=False)
-    status = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20))
     roomAssigned = db.Column(db.String(20), nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    startTime = db.Column(db.Time)
-    endTime = db.Column(db.Time)
-    treatments = db.relationship("Treatment", backref="appointment")
+    date = db.Column(db.Date)
+    time = db.Column(db.Time)
+    treatment = db.relationship("Treatment", backref="appointment")
     feeCharge = db.relationship("FeeCharge", backref="appointment", uselist=False)
-    patientId = db.Column(
-        db.Integer, db.ForeignKey("patient.id"), nullable=False
+    patientUsername = db.Column(
+        db.String(30), db.ForeignKey("patient.username")
     )  # one to many. Referncing to classes in foreignKey relationship, we use lower case name of class
     # Patient name can be accessed through FK referncing
 
@@ -146,7 +144,7 @@ class Payment(db.Model):
 class Review(db.Model):
     reviewId = db.Column(db.Integer, primary_key=True)
     employeeProfessionalism = db.Column(db.String(100))
-    vlaue = db.Column(db.String(100))
+    value = db.Column(db.String(100))
     communication = db.Column(db.String(100))
     cleanliness = db.Column(db.String(100))
     patientId = db.Column(
@@ -204,10 +202,30 @@ class Record(db.Model):
     patientId = db.Column(
         db.Integer, db.ForeignKey("patient.id"), nullable=False
     )  # one to one.
-    progressNotes = db.relationship("ProgressNote", backref="Record")
+    progressNotes = db.Column(db.String, nullable=False)
 
 
 class ProgressNote(db.Model):
     noteId = db.Column(db.Integer, primary_key=True)
     note = db.Column(db.String(150), nullable=False)
     recordId = db.Column(db.Integer, db.ForeignKey("record.recordId"))  # many to one
+
+
+# def populate():
+#     with app.app_context():
+#         p1 = Patient(id='1', username='Joo', email="jooo@gmail.com", password='123', firstName="John", lastName="Mashlov", phoneNum=98876555, SSN=124456, role="Patient", insurance="abcInsurance", age=22, gender="Male", houseNum="435/22", street="Kingstons street", province="Ontorio", city="Ottawa")
+#         db.session.add(p1)
+#         db.session.commit()
+#         print("User added")
+
+# if __name__ == '__main__':
+#     # The creation starts here.
+#     # the same can be done by creating an create_engine object.
+#     # example:
+#     # from sqlalchemy import create_engine
+#     # engine = create_engine()
+#     # if not engine.has_table(tablename)
+
+# inserting new information about Members
+# A new member name John
+
