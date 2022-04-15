@@ -27,7 +27,7 @@ class Patient(db.Model, UserMixin):
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     # dob = db.Column(db.Date, nullable=True)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     gender = db.Column(db.String(10), nullable=False)
     houseNum = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
@@ -58,7 +58,7 @@ class Employee(db.Model, UserMixin):
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     salary = db.Column(db.Numeric(2), default=0.00)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     # dob = db.Column(db.Date, nullable=True)
     # signUpDate = db.Column(db.Date, default=func.now())   Automaticall creates dates of for us
     gender = db.Column(db.String(10), nullable=False)
@@ -71,12 +71,13 @@ class Employee(db.Model, UserMixin):
     worksInBranch = db.Column(
         db.Integer, db.ForeignKey("branch.branchId")
     )  # many to one
+    appointments = db.relationship("Appointment", backref="employee") # many to one
 
 
 class Branch(db.Model):
     branchId = db.Column(db.Integer, primary_key=True)
     employeesNum = db.Column(db.Integer, nullable=False, default=0)
-    houseNum = db.Column(db.String(30), nullable=False)
+    branchName = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
     city = db.Column(db.String(30), nullable=False)
     province = db.Column(db.String(30), nullable=False)
@@ -89,21 +90,21 @@ class Branch(db.Model):
 class Appointment(db.Model):
     appointmentId = db.Column(db.Integer, primary_key=True)
     branch = db.Column(db.String(30), nullable=False)
-    dentistIdentifier = db.Column(
-        db.String(30), nullable=False
-    )  # Maybe int? not sure if thats id or what
     appointmentType = db.Column(db.String(30), nullable=False)
     status = db.Column(db.String(20), nullable=False)
     roomAssigned = db.Column(db.String(20), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date)
     startTime = db.Column(db.Time)
     endTime = db.Column(db.Time)
-    treatment = db.relationship("Treatment", backref="appointment")
+    treatments = db.relationship("Treatment", backref="appointment")
     feeCharge = db.relationship("FeeCharge", backref="appointment", uselist=False)
-    patientId = db.Column(
-        db.Integer, db.ForeignKey("patient.id"), nullable=False
+    patientUsername = db.Column(
+        db.Integer, db.ForeignKey("patient.username"), nullable=False
     )  # one to many. Referncing to classes in foreignKey relationship, we use lower case name of class
     # Patient name can be accessed through FK referncing
+    dentistIdneitifier = db.Column(
+        db.Integer, db.ForeignKey("employee.id")
+    )  # one to many
 
 
 class Invoice(db.Model):
@@ -145,7 +146,7 @@ class Payment(db.Model):
 class Review(db.Model):
     reviewId = db.Column(db.Integer, primary_key=True)
     employeeProfessionalism = db.Column(db.String(100))
-    value = db.Column(db.String(100))
+    vlaue = db.Column(db.String(100))
     communication = db.Column(db.String(100))
     cleanliness = db.Column(db.String(100))
     patientId = db.Column(
@@ -157,7 +158,7 @@ class Procedure(db.Model):
     procedureID = db.Column(db.Integer, primary_key=True)
     procedureType = db.Column(db.String(50), nullable=False)
     procedureDescription = db.Column(db.String(50), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date)
     treatmentId = db.Column(
         db.Integer, db.ForeignKey("treatment.treatmentId"), nullable=False
     )  # one to one
@@ -203,10 +204,11 @@ class Record(db.Model):
     patientId = db.Column(
         db.Integer, db.ForeignKey("patient.id"), nullable=False
     )  # one to one.
-    progressNotes = db.Column(db.String, nullable=False)
+    progressNotes = db.relationship("ProgressNote", backref="Record")
 
 
 class ProgressNote(db.Model):
     noteId = db.Column(db.Integer, primary_key=True)
     note = db.Column(db.String(150), nullable=False)
     recordId = db.Column(db.Integer, db.ForeignKey("record.recordId"))  # many to one
+

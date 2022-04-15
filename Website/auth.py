@@ -34,11 +34,12 @@ def login():
             user = Patient.query.filter_by(username=username).first()
             if user:
                 if check_password_hash(user.password, password):
-                  
-                    flash("Logged in successfully")
+                # if (user.password==password):
                     return redirect(url_for("views.patient"))
                 else:
                     flash("Incorrect password, try again")
+            else:
+                flash("User does not exist")
         elif role == "Dentist" or role == "Receptionist":
             user = Employee.query.filter_by(username=username).first()
 
@@ -57,8 +58,9 @@ def login():
                     return redirect(url_for("views.receptionist"))
                 else:
                     flash("Incorrect password, try again")
-        else:
             flash("User does not exist")
+        else:
+            flash("Input your username and password")
 
     return render_template("login.html")
 
