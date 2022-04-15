@@ -1,140 +1,145 @@
-{% extends "base.html" %} {% block title %} Patient {% endblock%} {% block
-    content %}
-    <html> 
-        <p>
-            <h1 class = "title" align ="center">Welcome to the Patient Page!</h1>
-        </p>
+{% extends "base.html" %} 
+{% block title %} Patient {% endblock%} 
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Patient UI</title>
         <style>
-    
-            .title {
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 36px;
-                text-align: center;
-                border: 10px solid navy;
-                padding: 10px;
+
+           body {
+              background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(155, 185, 203));
             }
-    
-            .img {
-                width: 300px;
-                border-radius: 10px;
-                float: middle;
-                margin-bottom: 10px;
+            .header {
+              font-family: Helvetica, Arial, sans-serif;
+              text-align: center;
+              font-size: 30px;
+              color:rgb(29, 51, 89);
             }
-            p {
-                font-family: Arial, Helvetica, sans-serif;
-                margin-bottom: 10px;
+            .buttons{
+                background-color:white;
+                border: 3px solid rgb(29, 51, 89);;
+                height: 100px;
+                width: 150px;
+                margin: 20px;
+                border-radius: 50%;
+                font-size: 22px;
+                transition-duration: 0.2s;
             }
-            .accessHere {
-                font-weight: bold;
-            } 
-            .upcomingAppointment {
-                font-weight: bold; 
-                
-    
-            }
-            .searchDentist {
-                font-weight: bold; 
-            }
-    
-            * {
-                box-sizing: border-box;
-            }
-            form.searchBox input[type=text] {
-                padding: 7px;
-                font-size: 17px;
-                border: 1px solid grey;
-                float: left;
-                width: 80%;
-                background: #f1f1f1;
-            }
-            form.searchBox button {
-                float: left;
-                width: 20%;
-                padding: 7px;
-                background: navy;
+            .buttons:hover{
+                background-color: rgb(29, 51, 89);
                 color: white;
-                font-size: 17px;
-                border: 1px solid navy;
-                border-left: none;
-                cursor: pointer;
             }
-            form.searchBox button:hover {
-                background: blue;
+            .buttonForm{
+                display: flex;
+                justify-content: center;
             }
-    
-            form.search::after {
-                content: "";
-                clear: both;
-                display: table;
+            .appointment {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            .record {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            table, th, td{
+                border-collapse: collapse;
+                margin: 25px;
+                overflow: hidden;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            th, td{
+                padding: 10px;
+                text-align: center;
+                font-family: Helvetica, Arial, sans-serif;
+                border: 2px solid white;
+                color: rgb(29, 51, 89);
+                 
+            }
+            tr:nth-child(odd){
+                color: #ffffff;
+                border: 2px solid white;
+            }
+            th{
+                color: white;
+                background-color:rgb(29, 51, 89);
+                font-family: Helvetica, Arial, sans-serif;
             }
         </style>
-    
-        <br/>
-         <body>
-            <img src = "images/PatientPicture.jpg">
-        </body>
-        
-        <br/>
-        <p>
-            <label class = "accessHere">Access Medical History Here</label>
-        </p>
-    
-        <div class="astatus">
-            <p>
-            <table border="1">
-                <tr>
+    </head>
+    <body>
+    </div>
+    <div class="header">
+        <h2>WELCOME TO PATIENT PAGE</h2>
+    </div>
+    <div class="buttonForm">
+        </form action="http://127.0.0.1:5000/login">
+            <button type="submit" class="buttons">Sign Out</button>
+        </form action="http://127.0.0.1:5000/setPatientAppoi">
+        <button type="submit" class="buttons">Make New Appointment</button>
+    </div>
+        <h1 class="appointment">UPCOMING APPOINTMENT(S)</h1>
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient ID</th>
+                <th>Dentist Identifier</th>
+                <th>Appointment Type</th>
+                <th>Status</th>
+                <th>Room Assigned</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End time</th>
+                <th>Treatment</th>
+                <th>Fee Charge</th>
+            </tr>
+            {% if appt %}
+                {% for appt in appointmentRows %}
+                    <tr>
+                        <td>{{ appt.appointmentId }}</td>
+                        <td>{{ appt.patientId }}</td>
+                        <td>{{ appt.dentistIdentifier }}</td>
+                        <td>{{ appt.appointmentType }}</td>
+                        <td>{{ appt.status }}</td>
+                        <td>{{ appt.roomAssigned }}</td>
+                        <td>{{ appt.date }}</td>
+                        <td>{{ appt.startTime }}</td>
+                        <td>{{ appt.endTime }}</td>
+                        <td>{{ appt.treatment }}</td>
+                        <td>{{ appt.feeCharge }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        </div>
+            <h1 class="record">YOUR PATIENT RECORDS</h1>
+            <table>
+                <tr> 
                     <th>Record ID</th>
+                    <th>Date </th>
                     <th>Patient ID</th>
-                    <th>Date Edited</th>
                     <th>Progress Notes</th>
                 </tr>
-    
-                <tr>
-                    <td>  </td>
-                    <td> </td>
-                    <td>  </td>
-                    <td> </td>
-                </tr>
-            </table>
-        
-            <form action="{{ url_for('views.patient') }}">
-            <button type="submit" class="ibutton" value="Refresh Record">Refresh Your Record</button>
-            </form>
-        </p>
-        </div>
-    
-        <body>
-            <p>
-                <label class = "upcomingAppointment">Check Upcoming Appointment(s)</label>
-            </p>
-        </body>
-    
-            <div class="astatus">
-                <p>
-                <table border="1">
-                    <tr>
-                        <th>Dentist Name </th>
-                        <th>Appointment Date</th>
-                        <th>Start Date</th>
-                        <th>End Time</th>
-            
-                        </tr>
-                      
+                {% if rec %}
+                    {% for rec in recordRows %}
                         <tr>
-                        <td> <form class="searchBox" action="/action_page.php" style="margin:auto;max-width:300px">
-                            <input type="text" placeholder="Search..." name="search2">
-                            <button type="Enter" class="btn btn-primary">Enter</button>  
-                            </form> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                    </tr>
-                </table>
-    
-                    <form action="{{ url_for('views.patient') }}">
-                    <button type="submit" class="ibutton" value="Refresh Appointment">Refresh Your Appointment</button>
-                    </form>
-                </p>
-            </div>
-    </html>
-        {% endblock %}
+                            <td>{{ rec.recordId}}</td>
+                            <td>{{ rec.dateEdited }}</td>
+                            <td>{{ rec.patientID }}</td>
+                            <td>{{ rec.progressNotes }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+    </body>
+</html>
+{% endblock %}
