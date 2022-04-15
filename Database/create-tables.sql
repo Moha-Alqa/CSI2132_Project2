@@ -173,11 +173,10 @@ CREATE TABLE Employee(
 );
 
 --- create queries
-INSERT INTO 'Patient'('Patient_ID', 'Email', `Password`, 'First_name', 'Last_name',
-  	'Phone_num', 'SSN', 'Insurance', 'Age', 'Gender', 'Street_num', 'Street_name',
-    'Postal_code', 'City', 'Province') VALUES ('12345678', 'samantha25@gmail.com', '123Password', 
-    'Samantha', 'Green', '6135608989', '167283432', 'ABCInsurance1', '25', 'Female',
-    '1019', 'Acorn Street', 'K45 32J', 'Ottawa', 'Ontario');
+INSERT INTO 'Patient'('id', 'username', 'email', `password`, 'firstName', 'lastName',
+  	'phoneNum', 'SSN', 'role', 'insurance', 'age', 'gender', 'houseNum', 'street', 'City', 'province',
+    ) VALUES ('1', 'sam', 'samantha25@gmail.com', '123', 'Samantha', 'Green', '6135608989', '167283432', 
+    'ABCInsurance1', '25', 'Female', '1019', 'Acorn Street', 'Ottawa', 'Ontario');
     
 INSERT INTO 'Patient'('Patient_ID', 'Email', `Password`, 'First_name', 'Last_name',
   	'Phone_num', 'SSN', 'Insurance', 'Age', 'Gender', 'Street_num', 'Street_name',
