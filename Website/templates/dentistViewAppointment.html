@@ -1,10 +1,10 @@
 {% extends "base.html" %} 
-{% block title %} Patient {% endblock%} 
+{% block title %} Dentist View Appointment {% endblock%} 
 {% block content %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Patient UI</title>
+        <title>Dentist View Appointment</title>
         <style>
 
            body {
@@ -42,14 +42,6 @@
                 font-size: 28px;
                 color:rgb(29, 51, 89);
             }
-            .record {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                font-family: Helvetica, Arial, sans-serif; 
-                text-align: center;
-                font-size: 28px;
-                color:rgb(29, 51, 89);
-            }
             table, th, td{
                 border-collapse: collapse;
                 margin: 25px;
@@ -79,13 +71,13 @@
     <body>
     </div>
     <div class="header">
-        <h2>WELCOME TO PATIENT PAGE</h2>
+        <h2>DENTIST PAGE: VIEW APPOINTMENT(S)</h2>
     </div>
     <div class="buttonForm">
         </form action="http://127.0.0.1:5000/login">
             <button type="submit" class="buttons">Sign Out</button>
-        </form action="http://127.0.0.1:5000/setPatientAppoi">
-        <button type="submit" class="buttons">Make New Appointment</button>
+        </form action="http://127.0.0.1:5000/dentist">
+            <button type="submit" class="buttons">Go Back</button>
     </div>
         <h1 class="appointment">UPCOMING APPOINTMENT(S)</h1>
         <table>
@@ -102,10 +94,11 @@
                 <th>Treatment</th>
                 <th>Fee Charge</th>
             </tr>
-                {% for appt in user.appointments %}
+            {% if appt %}
+                {% for appt in appointmentRows %}
                     <tr>
                         <td>{{ appt.appointmentId }}</td>
-                        <td>{{ appt.patientUsername }}</td>
+                        <td>{{ appt.patientId }}</td>
                         <td>{{ appt.dentistIdentifier }}</td>
                         <td>{{ appt.appointmentType }}</td>
                         <td>{{ appt.status }}</td>
@@ -117,27 +110,8 @@
                         <td>{{ appt.feeCharge }}</td>
                     </tr>
                 {% endfor %}
+            {% endif %}
         </table>
-        </div>
-            <h1 class="record">YOUR PATIENT RECORDS</h1>
-            <table>
-                <tr> 
-                    <th>Record ID</th>
-                    <th>Date </th>
-                    <th>Patient ID</th>
-                    <th>Progress Notes</th>
-                </tr>
-                {% if rec %}
-                    {% for rec in recordRows %}
-                        <tr>
-                            <td>{{ rec.recordId}}</td>
-                            <td>{{ rec.dateEdited }}</td>
-                            <td>{{ rec.patientID }}</td>
-                            <td>{{ rec.progressNotes }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-            </table>
     </body>
 </html>
 {% endblock %}

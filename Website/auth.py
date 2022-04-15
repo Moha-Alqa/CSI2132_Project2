@@ -34,7 +34,7 @@ def login():
             user = Patient.query.filter_by(username=username).first()
             if user:
                 if check_password_hash(user.password, password):
-                # if (user.password==password):
+                    login_user(user, remember=True)
                     return redirect(url_for("views.patient"))
                 else:
                     flash("Incorrect password, try again")
@@ -62,7 +62,7 @@ def login():
         else:
             flash("Input your username and password")
 
-    return render_template("login.html")
+    return render_template("login.html", user=current_user)
 
 
 @auth.route("/signup", methods=["GET", "POST"])
@@ -174,14 +174,14 @@ def signup():
                     flash("Account Created Successfully")
                     return redirect(url_for("auth.login"))
 
-    return render_template("signup.html", error=message)
+    return render_template("signup.html", user=current_user)
 
 
 @auth.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for(views.home))
+    return redirect(url_for("views.home"))
 
 
 # if __name__ == "__main__":

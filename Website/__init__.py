@@ -26,6 +26,14 @@ def create_app():
 
     create_database(app)
 
+    login_manager = LoginManager()
+    login_manager.login_view = 'view.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_patient(id):
+        return Patient.query.get(int(id))
+
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_preffix="/")
 
