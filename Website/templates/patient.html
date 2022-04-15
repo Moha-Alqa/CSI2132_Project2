@@ -124,19 +124,15 @@
                 <tr> 
                     <th>Record ID</th>
                     <th>Date </th>
-                    <th>Patient ID</th>
                     <th>Progress Notes</th>
                 </tr>
-                {% if rec %}
-                    {% for rec in recordRows %}
+                    {% for rec in user.record %}
                         <tr>
-                            <td>{{ rec.recordId}}</td>
+                            <td>{{ rec.recordId }}</td>
                             <td>{{ rec.dateEdited }}</td>
-                            <td>{{ rec.patientID }}</td>
-                            <td>{{ rec.progressNotes }}</td>
+                            <td>{{ rec.progressNotes.note }}</td>
                         </tr>
                     {% endfor %}
-                {% endif %}
             </table>
     </body>
 </html>

@@ -41,7 +41,7 @@ class Patient(db.Model, UserMixin):
         "Review", backref="patient", uselist=False
     )  # uselist=False declares one to one relationship
     record = db.relationship(
-        "Record", backref="patient", uselist=False
+        "Record", backref="patient"
     )  # uselist=False declares one to one relationship
 
 
@@ -204,7 +204,7 @@ class Record(db.Model):
     patientId = db.Column(
         db.Integer, db.ForeignKey("patient.id"), nullable=False
     )  # one to one.
-    progressNotes = db.relationship("ProgressNote", backref="Record")
+    progressNotes = db.relationship("ProgressNote", backref="Record", uselist=False)
 
 
 class ProgressNote(db.Model):

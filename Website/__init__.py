@@ -112,13 +112,13 @@ def create_database(app):
             tr1 = Treatment(treatmentId='989000008',treatmentType='Root Canal Treatment', medication='(OTC) pain medication',symptoms='tooth discoloration', Teeth='Mandibullar Left Third Molar', appointmentId='000000001')
             tr2 = Treatment(treatmentId='111333287',treatmentType='Crown Treatment', medication='Acetaminophen', symptoms='mild pain', Teeth='All', appointmentId='000000002')
 
-            re1 = Record(recordId='666543898', dateEdited=datetime.datetime(2022, 3, 10), patientId='871235441')
-            re2 = Record(recordId='776644309', dateEdited=datetime.datetime(2022, 2, 20), patientId='991234441')
-            re3 = Record(recordId='900008764', dateEdited=datetime.datetime(2022, 1, 4), patientId='145994198')
+            re1 = Record(recordId='666543898', dateEdited=datetime.datetime(2022, 3, 10), patientId='748374639')
+            re2 = Record(recordId='776644309', dateEdited=datetime.datetime(2022, 2, 20), patientId='748374639')
+            re3 = Record(recordId='900008764', dateEdited=datetime.datetime(2022, 1, 4), patientId='748374639')
 
             pn1 = ProgressNote(noteId='777888430', note='Teeth look ok', recordId='666543898')
-            pn2 = ProgressNote(noteId='800000439', note='There is a cavity', recordId='776644309')
-            pn3 = ProgressNote(noteId='400000434', note='Braces reccomended', recordId='900008764')
+            pn2 = ProgressNote(noteId='776644309', note='There is a cavity', recordId='776644309')
+            pn3 = ProgressNote(noteId='900008764', note='Braces reccomended', recordId='900008764')
 
             app1=Appointment(appointmentId='000000001', branch='7878984327', appointmentType='check-up', status='booked', roomAssigned='Room101', date=datetime.datetime(2022, 6, 10), startTime= datetime.time(11,0,0), endTime = datetime.time(11,30,0), patientUsername='james3', dentistIdneitifier='567898763')
             app2=Appointment(appointmentId='000000002', branch='7878984327', appointmentType='check-up', status='booked', roomAssigned='Room104', date=datetime.datetime(2022, 7, 11), startTime= datetime.time(2,0,0), endTime = datetime.time(2,30,0), patientUsername='james3', dentistIdneitifier='676789832')
