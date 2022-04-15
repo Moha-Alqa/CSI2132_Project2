@@ -1,4 +1,35 @@
-{% extends "base.html" %} {% block title %} Dentist {% endblock%} {% block
-content %}
-<h1>Welcome Dentist!</h1>
+{% extends "base.html" %} 
+{% block title %} Dentist {% endblock%} {% block content %}
+<body>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Welcome Receptionist!</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button
+    class="btn btn-primary btn-lg btn-block"
+    onclick="window.location.href = '/setPatientAppoi'">
+    Set Appointment
+    </button>
+
+    <button
+    class="btn btn-primary btn-lg btn-block"
+    onclick="window.location.href = '/receptionistEditInfo'">
+    Edit Info
+    </button>
+
+    <button
+    class="btn btn-primary btn-lg btn-block"
+    onclick="window.location.href = '/signup'">
+    Add new User
+    </button>
+</body>
+
 {% endblock %}
+ 
