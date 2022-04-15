@@ -71,12 +71,13 @@ class Employee(db.Model, UserMixin):
     worksInBranch = db.Column(
         db.Integer, db.ForeignKey("branch.branchId")
     )  # many to one
+    appointments = db.relationship("Appointment", backref="employee")  # many to one
 
 
 class Branch(db.Model):
     branchId = db.Column(db.Integer, primary_key=True)
     employeesNum = db.Column(db.Integer, nullable=False, default=0)
-    houseNum = db.Column(db.String(30), nullable=False)
+    branchName = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
     city = db.Column(db.String(30), nullable=False)
     province = db.Column(db.String(30), nullable=False)
@@ -103,6 +104,9 @@ class Appointment(db.Model):
         db.String(30), db.ForeignKey("patient.username")
     )  # one to many. Referncing to classes in foreignKey relationship, we use lower case name of class
     # Patient name can be accessed through FK referncing
+    dentistIdneitifier = db.Column(
+        db.Integer, db.ForeignKey("employee.id")
+    )  # one to many
 
 
 class Invoice(db.Model):
@@ -156,7 +160,7 @@ class Procedure(db.Model):
     procedureID = db.Column(db.Integer, primary_key=True)
     procedureType = db.Column(db.String(50), nullable=False)
     procedureDescription = db.Column(db.String(50), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date)
     treatmentId = db.Column(
         db.Integer, db.ForeignKey("treatment.treatmentId"), nullable=False
     )  # one to one
@@ -209,23 +213,4 @@ class ProgressNote(db.Model):
     noteId = db.Column(db.Integer, primary_key=True)
     note = db.Column(db.String(150), nullable=False)
     recordId = db.Column(db.Integer, db.ForeignKey("record.recordId"))  # many to one
-
-
-# def populate():
-#     with app.app_context():
-#         p1 = Patient(id='1', username='Joo', email="jooo@gmail.com", password='123', firstName="John", lastName="Mashlov", phoneNum=98876555, SSN=124456, role="Patient", insurance="abcInsurance", age=22, gender="Male", houseNum="435/22", street="Kingstons street", province="Ontorio", city="Ottawa")
-#         db.session.add(p1)
-#         db.session.commit()
-#         print("User added")
-
-# if __name__ == '__main__':
-#     # The creation starts here.
-#     # the same can be done by creating an create_engine object.
-#     # example:
-#     # from sqlalchemy import create_engine
-#     # engine = create_engine()
-#     # if not engine.has_table(tablename)
-
-# inserting new information about Members
-# A new member name John
 

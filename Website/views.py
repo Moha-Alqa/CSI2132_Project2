@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 
+
 views = Blueprint("views", __name__)
 
 
@@ -28,7 +29,16 @@ def patientInfo():
     return render_template("patientInfo.html")
 
 
-@views.route("/receptionistEditInfo")
-def receptionistEditInfo():
-    return render_template("receptionistEditInfo.html")
+@views.route("dentistViewAppointment")
+def dentistViewAppointment():
+    return render_template("dentistViewAppointment.html")
 
+
+@views.route("dentistViewProcedure")
+def dentistViewProcedure():
+    return render_template("dentistViewProcedure.html")
+
+
+@views.route("dentistViewRecord")
+def dentistViewRecord():
+    return render_template("dentistViewRecord.html")

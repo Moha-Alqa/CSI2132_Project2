@@ -1,76 +1,76 @@
 {% extends "base.html" %} {% block title %} Set Patient Appointment {% endblock%} {% block
-    content %}
-    <h1>Set Patient Appointment</h1>
+  content %}
+  <h1>Set Patient Appointment</h1>
 
 
-    <body>
-    
+  <body>
+  
 
-            <fieldset>
+          <fieldset>
 
-              <div class="two-cols">
-                <form action="SEND ADDRESS" id="ft-form" method="POST" accept-charset="UTF-8">
-                  <label for="firstname">First name:</label>
-                      <input type="text" id="firstname" name="firstname" required>
-                      <label for="lastname">Last name:</label>
-                      <input type="text" id="lastname" name="lastname" required><br>
-                      <br>
-                      <label for=" username">Username: </label>
-                      <input type="text" id="username" name="username" required>
-                      <br>
-                      </br>
-                    
-              </div>
-              
-              <div class="two-cols">
-                  <label for="emails">Email address:</label>
-                        <input type="email" id="email" name="email" required>
-                  <label>
-                  <label for="room"> Room: </label>
-                  <input type ="text" id = "room" name = "room" required>
-                                   
-              </div>
-              <br>
-              <div class="two-cols">
-                <label>
-                  Date
-                  <input type="date" name="Appointment request" required>
-                </label>
-                <br>
-                <br>
-                </div>
-                <div class="inline">
-                  <label>
-                     Slot
-                    <input type="hidden" name="Morning desired" value="no">
-                    <input type="checkbox" name="Morning desired" value="yes">
-                    Morning
-                  </label>
-                  <label>
-                    <input type="hidden" name="Afternoon desired" value="no">
-                    <input type="checkbox" name="Afternoon desired" value="yes">
-                    Afternoon
-                  </label>
-                </div>
-
-             <div>
-              <label for="appointmentType">Appointment Type:</label>
-              <input type="text" id="appointmentType" name="appointmentType" required>
-            
-              <br>
-              <label for="branch"> Branch</label>
-              <input type="text" id="branch" name="branch" required>
-              <br>
-              <label for="status">Status  </label>
-              <input type="text" id="status" name="status" required>
-             </div>
-            </fieldset>
-            
-            <div class="btns">
-              <input type="text" name="_gotcha" value="" style="display:none;">
-              <input type="submit" value="Book appointment">
+            <div class="two-cols">
+              <form action="SEND ADDRESS" id="ft-form" method="POST" accept-charset="UTF-8">
+                <label for="firstname">First name:</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                    <label for="lastname">Last name:</label>
+                    <input type="text" id="lastname" name="lastname" required><br>
+                    <br>
+                    <label for=" username">Username: </label>
+                    <input type="text" id="username" name="username" required>
+                    <br>
+                    </br>
+                  
             </div>
-          </form>
+            
+            <div class="two-cols">
+                <label for="emails">Email address:</label>
+                      <input type="email" id="email" name="email" required>
+                <label>
+                <label for="room"> Room: </label>
+                <input type ="text" id = "room" name = "room" required>
+                                 
+            </div>
+            <br>
+            <div class="two-cols">
+              <label>
+                Date
+                <input type="date" name="Appointment request" required>
+              </label>
+              <br>
+              <br>
+              </div>
+              <div class="inline">
+                <label>
+                   Slot
+                  <input type="hidden" name="Morning desired" value="no">
+                  <input type="checkbox" name="Morning desired" value="yes">
+                  Morning
+                </label>
+                <label>
+                  <input type="hidden" name="Afternoon desired" value="no">
+                  <input type="checkbox" name="Afternoon desired" value="yes">
+                  Afternoon
+                </label>
+              </div>
+
+           <div>
+            <label for="appointmentType">Appointment Type:</label>
+            <input type="text" id="appointmentType" name="appointmentType" required>
+          
+            <br>
+            <label for="branch"> Branch</label>
+            <input type="text" id="branch" name="branch" required>
+            <br>
+            <label for="status">Status  </label>
+            <input type="text" id="status" name="status" required>
+           </div>
+          </fieldset>
+          
+          <div class="btns">
+            <input type="text" name="_gotcha" value="" style="display:none;">
+            <input type="submit" value="Book appointment">
+          </div>
+        </form>
 </body>
 
 {% endblock %}

@@ -81,18 +81,21 @@ CREATE TABLE Fee_Charge(
     Total_charge decimal(9,2) NOT NULL,
     Bill_ID int(9) NOT NULL,
 	Appointment_ID int(9) NOT NULL,
-    FOREIGN KEY(Appointment_ID) REFERENCES Appointment(Patient_ID)
+    FOREIGN KEY(Appointment_ID) REFERENCES Appointment(Patient_ID),
+	FOREIGN KEY(Bill_ID) REFERENCES Payment(Bill_ID)
 );
 
 CREATE TABLE Tooth(
 	Tooth_name VARCHAR(100) NOT NULL,
-    Treatment_ID int(9) NOT NULL
+    Treatment_ID int(9) NOT NULL,
+	FOREIGN KEY(Treatment_ID) REFERENCES Treatment(Treatment_ID)
     );
 
 CREATE TABLE `Comment`(
 	Comment_ID int(9) PRIMARY KEY,
     `Text` varchar(100),
-    Treatment_ID int(9) NOT NULL
+    Treatment_ID int(9) NOT NULL,
+	FOREIGN KEY(Treatment_ID) REFERENCES Treatment(Treatment_ID)
 );
     
 
@@ -145,7 +148,8 @@ CREATE TABLE Invoice(
 CREATE TABLE ProgressNote(
     Note_ID int PRIMARY KEY,
     Note VARCHAR(100) NOT NULL,
-    Record_ID int(9) NOT NULL
+    Record_ID int(9) NOT NULL,
+	FOREIGN KEY(Record_ID) REFERENCES Record(Record_ID)
 );
 
 CREATE TABLE Employee(
@@ -173,11 +177,10 @@ CREATE TABLE Employee(
 );
 
 --- create queries
-INSERT INTO 'Patient'('Patient_ID', 'Email', `Password`, 'First_name', 'Last_name',
-  	'Phone_num', 'SSN', 'Insurance', 'Age', 'Gender', 'Street_num', 'Street_name',
-    'Postal_code', 'City', 'Province') VALUES ('12345678', 'samantha25@gmail.com', '123Password', 
-    'Samantha', 'Green', '6135608989', '167283432', 'ABCInsurance1', '25', 'Female',
-    '1019', 'Acorn Street', 'K45 32J', 'Ottawa', 'Ontario');
+INSERT INTO 'Patient'('id', 'username', 'email', `password`, 'firstName', 'lastName',
+  	'phoneNum', 'SSN', 'role', 'insurance', 'age', 'gender', 'houseNum', 'street', 'City', 'province',
+    ) VALUES ('1', 'sam', 'samantha25@gmail.com', '123', 'Samantha', 'Green', '6135608989', '167283432', 
+    'ABCInsurance1', '25', 'Female', '1019', 'Acorn Street', 'Ottawa', 'Ontario');
     
 INSERT INTO 'Patient'('Patient_ID', 'Email', `Password`, 'First_name', 'Last_name',
   	'Phone_num', 'SSN', 'Insurance', 'Age', 'Gender', 'Street_num', 'Street_name',

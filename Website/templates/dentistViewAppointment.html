@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+{% block title %} Dentist View Appointment {% endblock%} 
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dentist View Appointment</title>
+        <style>
+
+           body {
+              background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(155, 185, 203));
+            }
+            .header {
+              font-family: Helvetica, Arial, sans-serif;
+              text-align: center;
+              font-size: 30px;
+              color:rgb(29, 51, 89);
+            }
+            .buttons{
+                background-color:white;
+                border: 3px solid rgb(29, 51, 89);;
+                height: 100px;
+                width: 150px;
+                margin: 20px;
+                border-radius: 50%;
+                font-size: 22px;
+                transition-duration: 0.2s;
+            }
+            .buttons:hover{
+                background-color: rgb(29, 51, 89);
+                color: white;
+            }
+            .buttonForm{
+                display: flex;
+                justify-content: center;
+            }
+            .appointment {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            table, th, td{
+                border-collapse: collapse;
+                margin: 25px;
+                overflow: hidden;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            th, td{
+                padding: 10px;
+                text-align: center;
+                font-family: Helvetica, Arial, sans-serif;
+                border: 2px solid white;
+                color: rgb(29, 51, 89);
+                 
+            }
+            tr:nth-child(odd){
+                color: #ffffff;
+                border: 2px solid white;
+            }
+            th{
+                color: white;
+                background-color:rgb(29, 51, 89);
+                font-family: Helvetica, Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+    </div>
+    <div class="header">
+        <h2>DENTIST PAGE: VIEW APPOINTMENT(S)</h2>
+    </div>
+    <div class="buttonForm">
+        </form action="http://127.0.0.1:5000/login">
+            <button type="submit" class="buttons">Sign Out</button>
+        </form action="http://127.0.0.1:5000/dentist">
+            <button type="submit" class="buttons">Go Back</button>
+    </div>
+        <h1 class="appointment">UPCOMING APPOINTMENT(S)</h1>
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient ID</th>
+                <th>Dentist Identifier</th>
+                <th>Appointment Type</th>
+                <th>Status</th>
+                <th>Room Assigned</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End time</th>
+                <th>Treatment</th>
+                <th>Fee Charge</th>
+            </tr>
+            {% if appt %}
+                {% for appt in appointmentRows %}
+                    <tr>
+                        <td>{{ appt.appointmentId }}</td>
+                        <td>{{ appt.patientId }}</td>
+                        <td>{{ appt.dentistIdentifier }}</td>
+                        <td>{{ appt.appointmentType }}</td>
+                        <td>{{ appt.status }}</td>
+                        <td>{{ appt.roomAssigned }}</td>
+                        <td>{{ appt.date }}</td>
+                        <td>{{ appt.startTime }}</td>
+                        <td>{{ appt.endTime }}</td>
+                        <td>{{ appt.treatment }}</td>
+                        <td>{{ appt.feeCharge }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </body>
+</html>
+{% endblock %}
