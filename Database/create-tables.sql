@@ -88,6 +88,7 @@ CREATE TABLE Fee_Charge(
 CREATE TABLE Tooth(
 	Tooth_name VARCHAR(100) NOT NULL,
     Treatment_ID int(9) NOT NULL
+	FOREIGN KEY(Treatment_ID) REFERENCES Treatment(Treatment_ID)
     );
 
 CREATE TABLE `Comment`(
