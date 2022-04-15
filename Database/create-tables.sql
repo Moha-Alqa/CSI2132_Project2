@@ -147,6 +147,7 @@ CREATE TABLE ProgressNote(
     Note_ID int PRIMARY KEY,
     Note VARCHAR(100) NOT NULL,
     Record_ID int(9) NOT NULL
+	FOREIGN KEY(Record_ID) REFERENCES Record(Record_ID)
 );
 
 CREATE TABLE Employee(
