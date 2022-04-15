@@ -97,11 +97,10 @@
     <body>
 
       <div class="topnav">
-          <form action="http://127.0.0.1:5000/dentistViewRecord">
+          <form onclick="window.location.href = '/dentistViewRecord'">
             <input type="text" placeholder="Search Patient...">
         </form>
       </div>
-
         <div class="headerDiv">
             <h2>WELCOME TO DENTIST PAGE</h3>
               <form action="http://127.0.0.1:5000/login">
@@ -109,9 +108,9 @@
             </form>
         </div>
         <div class="buttonDiv">
-            </form action="http://127.0.0.1:5000/dentistViewAppointment">
+            </form onclick="window.location.href = '/dentistViewAppointment'">
                 <button type="submit" class="optionButton">Upcoming Appointments</button>
-            </form action="http://127.0.0.1:5000/dentistViewProcedure">
+            </form onclick="window.location.href = '/dentistViewProcedure'">
                 <button type="submit" class="optionButton">Appointment Procedures</button>
         </div>
     </body>

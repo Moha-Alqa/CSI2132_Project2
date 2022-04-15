@@ -1,7 +1,7 @@
 import datetime
 from flask import Flask
 from flask import Blueprint, render_template
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from requests import session
@@ -45,12 +45,24 @@ def create_database(app):
         db.create_all(app=app)
         print("Created Database!")
 
-        from .models import Patient, Employee, Branch, Appointment, Procedure, Tooth, Comment, Treatment, Record, ProgressNote, Invoice, FeeCharge, Payment
+        from .models import (
+            Patient,
+            Employee,
+            Branch,
+            Appointment,
+            Procedure,
+            Tooth,
+            Comment,
+            Treatment,
+            Record,
+            ProgressNote,
+            Invoice,
+            FeeCharge,
+            Payment,
+        )
 
+        ###### --------------------------------------- POPULATING RELATIONS --------------------------------------- ######
 
-        ###### --------------------------------------- POPULATING RELATIONS --------------------------------------- ######    
-        
-           
         with app.app_context():
             p1 = Patient(id='748374639', username='james3', email="james3@gmail.com", password=generate_password_hash("iwhge94", method="sha256"), firstName="James", lastName="Garcia", phoneNum='6472480571', SSN='789176415', role="Patient", insurance="CanadaLife", age=21, gender="Male", houseNum="1127", street="Trinity Street", province="Ontario", city="Ottawa")
             p2 = Patient(id='949374839', username='rob2', email="rob2@gmail.com", password=generate_password_hash("4iuwgrnvw", method="sha256"), firstName="Robert", lastName="Miller", phoneNum='6483516970', SSN=198965138, role="Patient", insurance="abcInsurance", age=83, gender="Male", houseNum="12", street="Twining Street", province="Ontario", city="Toronto")
@@ -171,7 +183,7 @@ def create_database(app):
             db.session.add(p29)
             db.session.add(p30)
 
-            #add dentists
+            # add dentists
             db.session.add(d1)
             db.session.add(d2)
             db.session.add(d3)
@@ -179,95 +191,228 @@ def create_database(app):
             db.session.add(d5)
             db.session.add(d6)
 
-            #add receptionists
+            # add receptionists
             db.session.add(r1)
             db.session.add(r2)
 
-            #add branches
+            # add branches
             db.session.add(b1)
             db.session.add(b2)
             db.session.add(b3)
 
-            #add procedures
+            # add procedures
             db.session.add(pr1)
             db.session.add(pr2)
 
-            #add treatment
+            # add treatment
             db.session.add(tr1)
-            db.session.add(tr2)          
+            db.session.add(tr2)
 
-            #add tooth
+            # add tooth
             db.session.add(t1)
-            db.session.add(t2)    
+            db.session.add(t2)
 
-            #add comment
+            # add comment
             db.session.add(c1)
             db.session.add(c2)
             db.session.add(c3)
 
-            #add records
+            # add records
             db.session.add(re1)
             db.session.add(re2)
             db.session.add(re3)
 
-            #add progress notes
+            # add progress notes
             db.session.add(pn1)
             db.session.add(pn2)
             db.session.add(pn3)
 
-            #add appointments
+            # add appointments
             db.session.add(app1)
             db.session.add(app2)
-            db.session.add(app3)      
+            db.session.add(app3)
             db.session.add(app4)
             db.session.add(app5)
-            db.session.add(app6) 
+            db.session.add(app6)
 
-            #add invoice
+            # add invoice
             db.session.add(i1)
             db.session.add(i2)
             db.session.add(i3)
 
-            #add payment
+            # add payment
             db.session.add(pay1)
             db.session.add(pay2)
-            db.session.add(pay3)       
+            db.session.add(pay3)
 
-            #add fee charge
+            # add fee charge
             db.session.add(f1)
             db.session.add(f2)
-            db.session.add(f3)   
-                    
-            db.session.commit()
+            db.session.add(f3)
 
+            db.session.commit()
 
             ###### --------------------------------------- QUERIES --------------------------------------- ######
 
             ### 1 Show the list dentists in each branch.
             # Sort dentists by branch they work in
-            bra1 = (db.session.query(Branch, Employee).filter(Employee.worksInBranch == Branch.branchId).order_by(Branch.branchId).all())
+            bra1 = (
+                db.session.query(Branch, Employee)
+                .filter(Employee.worksInBranch == Branch.branchId)
+                .order_by(Branch.branchId)
+                .all()
+            )
             # Show dentists working in branch with id '7878984327'
-            bra2 = (db.session.query(Branch, Employee).filter(Employee.worksInBranch == Branch.branchId).filter(Branch.branchId == "7878984327").order_by(Branch.branchId).all())
+            bra2 = (
+                db.session.query(Branch, Employee)
+                .filter(Employee.worksInBranch == Branch.branchId)
+                .filter(Branch.branchId == "7878984327")
+                .order_by(Branch.branchId)
+                .all()
+            )
             # Show dentists working in branch with id '5443337786'
-            bra3 = (db.session.query(Branch, Employee).filter(Employee.worksInBranch == Branch.branchId).filter(Branch.branchId == "5443337786").order_by(Branch.branchId).all())
+            bra3 = (
+                db.session.query(Branch, Employee)
+                .filter(Employee.worksInBranch == Branch.branchId)
+                .filter(Branch.branchId == "5443337786")
+                .order_by(Branch.branchId)
+                .all()
+            )
 
             ### 2 Add new patients
-            pat1 = Patient(id='748374439', username='jmes3', email="jamees3@gmail.com", password=generate_password_hash("iwhge94", method="sha256"), firstName="James", lastName="Garcia", phoneNum='6472480571', SSN='789176415', role="Patient", insurance="CanadaLife", age=21, gender="Male", houseNum="1127", street="Trinity Street", province="Ontario", city="Ottawa")
-            pat2 = Patient(id='949374239', username='rb2', email="rob22@gmail.com", password=generate_password_hash("4iuwgrnvw", method="sha256"), firstName="Robert", lastName="Miller", phoneNum='6483516970', SSN=198965138, role="Patient", insurance="abcInsurance", age=83, gender="Male", houseNum="12", street="Twining Street", province="Ontario", city="Toronto")
-            pat3 = Patient(id='759394132', username='carl3', email="charl33@gmail.com", password=generate_password_hash("784iwug", method="sha256"), firstName="Charlotte", lastName="Davis", phoneNum='6108987043', SSN=187091016, role="Patient", insurance="lightInsurance", age=30, gender="Female", houseNum="65", street="Underwood Street", province="Ontario", city="Mississauga")
+            pat1 = Patient(
+                id="748374439",
+                username="jmes3",
+                email="jamees3@gmail.com",
+                password=generate_password_hash("iwhge94", method="sha256"),
+                firstName="James",
+                lastName="Garcia",
+                phoneNum="6472480571",
+                SSN="789176415",
+                role="Patient",
+                insurance="CanadaLife",
+                age=21,
+                gender="Male",
+                houseNum="1127",
+                street="Trinity Street",
+                province="Ontario",
+                city="Ottawa",
+            )
+            pat2 = Patient(
+                id="949374239",
+                username="rb2",
+                email="rob22@gmail.com",
+                password=generate_password_hash("4iuwgrnvw", method="sha256"),
+                firstName="Robert",
+                lastName="Miller",
+                phoneNum="6483516970",
+                SSN=198965138,
+                role="Patient",
+                insurance="abcInsurance",
+                age=83,
+                gender="Male",
+                houseNum="12",
+                street="Twining Street",
+                province="Ontario",
+                city="Toronto",
+            )
+            pat3 = Patient(
+                id="759394132",
+                username="carl3",
+                email="charl33@gmail.com",
+                password=generate_password_hash("784iwug", method="sha256"),
+                firstName="Charlotte",
+                lastName="Davis",
+                phoneNum="6108987043",
+                SSN=187091016,
+                role="Patient",
+                insurance="lightInsurance",
+                age=30,
+                gender="Female",
+                houseNum="65",
+                street="Underwood Street",
+                province="Ontario",
+                city="Mississauga",
+            )
 
             ### 3 Check upcoming appointment with the dentist
             # check upcoming appointment with dentist with id 567898763 and 676789832 (2 seperate queris)
-            appoint1 = (db.session.query(Appointment).filter(Appointment.dentistIdneitifier == 567898763).all())
-            appoint2 = (db.session.query(Appointment).filter(Appointment.dentistIdneitifier == 676789832).all())
+            appoint1 = (
+                db.session.query(Appointment)
+                .filter(Appointment.dentistIdneitifier == 567898763)
+                .all()
+            )
+            appoint2 = (
+                db.session.query(Appointment)
+                .filter(Appointment.dentistIdneitifier == 676789832)
+                .all()
+            )
 
-            ### 4. Set a new appointment 
-            appp1=Appointment(appointmentId='000000010', branch='7878984327', appointmentType='check-up', status='booked', roomAssigned='Room101', date=datetime.datetime(2022, 6, 10), startTime= datetime.time(11,0,0), endTime = datetime.time(11,30,0), patientUsername='james3', dentistIdneitifier='567898763')
-            appp2=Appointment(appointmentId='000000020', branch='7878984327', appointmentType='check-up', status='booked', roomAssigned='Room104', date=datetime.datetime(2022, 7, 11), startTime= datetime.time(2,0,0), endTime = datetime.time(2,30,0), patientUsername='rb2', dentistIdneitifier='676789832')
+            ### 4. Set a new appointment
+            appp1 = Appointment(
+                appointmentId="000000010",
+                branch="7878984327",
+                appointmentType="check-up",
+                status="booked",
+                roomAssigned="Room101",
+                date=datetime.datetime(2022, 6, 10),
+                startTime=datetime.time(11, 0, 0),
+                endTime=datetime.time(11, 30, 0),
+                patientUsername="james3",
+                dentistIdneitifier="567898763",
+            )
+            appp2 = Appointment(
+                appointmentId="000000020",
+                branch="7878984327",
+                appointmentType="check-up",
+                status="booked",
+                roomAssigned="Room104",
+                date=datetime.datetime(2022, 7, 11),
+                startTime=datetime.time(2, 0, 0),
+                endTime=datetime.time(2, 30, 0),
+                patientUsername="rb2",
+                dentistIdneitifier="676789832",
+            )
 
             ### 5.Add a new employee
-            den1 = Employee(id='567898063', username='dann34', firstName='Daniel', lastName='Elliot', email="dan777@gmail.com", password=generate_password_hash("hgdyeuw78", method="sha256"), phoneNum=6134567834, SSN=233445423, role="Dentist", insurance="lightInsurance", age=40, gender="Male", houseNum="1111", street="New Street", province="Ontario", city="Ottawa",worksInBranch='7878984327')
-            den2 = Employee(id='676781832', username='assh88', firstName='Ashley', lastName='Lopez', email="lopez677@gmail.com", password=generate_password_hash("wkughy7", method="sha256"), phoneNum=7645332987, SSN=567439087, role="Dentist", insurance="abcInsurance", age=30, gender="Female", houseNum="1099", street="Parliament Street", province="Ontario", city="Ottawa",worksInBranch='7878984327')
+            den1 = Employee(
+                id="567898063",
+                username="dann34",
+                firstName="Daniel",
+                lastName="Elliot",
+                email="dan777@gmail.com",
+                password=generate_password_hash("hgdyeuw78", method="sha256"),
+                phoneNum=6134567834,
+                SSN=233445423,
+                role="Dentist",
+                insurance="lightInsurance",
+                age=40,
+                gender="Male",
+                houseNum="1111",
+                street="New Street",
+                province="Ontario",
+                city="Ottawa",
+                worksInBranch="7878984327",
+            )
+            den2 = Employee(
+                id="676781832",
+                username="assh88",
+                firstName="Ashley",
+                lastName="Lopez",
+                email="lopez677@gmail.com",
+                password=generate_password_hash("wkughy7", method="sha256"),
+                phoneNum=7645332987,
+                SSN=567439087,
+                role="Dentist",
+                insurance="abcInsurance",
+                age=30,
+                gender="Female",
+                houseNum="1099",
+                street="Parliament Street",
+                province="Ontario",
+                city="Ottawa",
+                worksInBranch="7878984327",
+            )
 
             ### 6. Check the types of procedures available
             # proc = (db.session.query(Procedure).filter(func.distinct(Procedure.procedureType)).all())

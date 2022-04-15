@@ -71,7 +71,7 @@ class Employee(db.Model, UserMixin):
     worksInBranch = db.Column(
         db.Integer, db.ForeignKey("branch.branchId")
     )  # many to one
-    appointments = db.relationship("Appointment", backref="employee") # many to one
+    appointments = db.relationship("Appointment", backref="employee")  # many to one
 
 
 class Branch(db.Model):
@@ -90,13 +90,16 @@ class Branch(db.Model):
 class Appointment(db.Model):
     appointmentId = db.Column(db.Integer, primary_key=True)
     branch = db.Column(db.String(30), nullable=False)
+    dentistIdentifier = db.Column(
+        db.String(30)
+    )  # Maybe int? not sure if thats id or what
     appointmentType = db.Column(db.String(30), nullable=False)
-    status = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20))
     roomAssigned = db.Column(db.String(20), nullable=False)
     date = db.Column(db.Date)
     startTime = db.Column(db.Time)
     endTime = db.Column(db.Time)
-    treatments = db.relationship("Treatment", backref="appointment")
+    treatment = db.relationship("Treatment", backref="appointment")
     feeCharge = db.relationship("FeeCharge", backref="appointment", uselist=False)
     patientUsername = db.Column(
         db.String(30), db.ForeignKey("patient.username"), nullable=False
@@ -146,7 +149,7 @@ class Payment(db.Model):
 class Review(db.Model):
     reviewId = db.Column(db.Integer, primary_key=True)
     employeeProfessionalism = db.Column(db.String(100))
-    vlaue = db.Column(db.String(100))
+    value = db.Column(db.String(100))
     communication = db.Column(db.String(100))
     cleanliness = db.Column(db.String(100))
     patientId = db.Column(

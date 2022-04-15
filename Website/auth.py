@@ -1,5 +1,7 @@
+from crypt import methods
 from curses.ascii import EM
 from email import message
+import email
 from Website import views
 from . import db
 from flask import (
@@ -12,7 +14,7 @@ from flask import (
     redirect,
 )
 
-from .models import Patient, Employee
+from .models import Patient, Employee, Appointment
 
 from Website import models
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -44,15 +46,12 @@ def login():
             user = Employee.query.filter_by(username=username).first()
 
             if user:
-                if (
-                    check_password_hash(user.password, password)
-                    and Employee.role == "Dentist"
-                ): 
-                    flash('Logged in successfully')
+                if check_password_hash(user.password, password) and role == "Dentist":
+                    flash("Logged in successfully")
                     return redirect(url_for("views.dentist"))
                 elif (
                     check_password_hash(user.password, password)
-                    and Employee.role == "Receptionist"
+                    and role == "Receptionist"
                 ):
                     flash("Logged in successfully")
                     return redirect(url_for("views.receptionist"))
@@ -184,4 +183,42 @@ def logout():
     return redirect(url_for("views.home"))
 
 
-# if __name__ == "__main__":
+# @auth.route("/receptionistEditInfo/<String:username>", methods = ['GET','POST'])
+# @login_required
+# def receptionistEditInfo(username):
+
+#   user_to_update= Patient.query.get_or_404(username)
+#  if request.method == "POST":
+
+
+@auth.route("/setPatientAppoi", methods=["GET", "POST"])
+def setPatientAppoi():
+    data = request.form
+    print(data)
+
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        date = request.form.get("date")
+        time = request.form.get("slot")
+        room = request.form.get("room")
+        appointmentType = request.form.get("appointmentType")
+        branch = request.form.get("branch")
+        status = request.form.get("status")
+
+        new_appointment = Appointment(
+            PatientUsername=username,
+            date=date,
+            time=time,
+            roomAssigned=room,
+            appointmentType=appointmentType,
+            branch=branch,
+            status=status,
+        )
+        db.session.add(new_appointment)
+        db.session.commit()
+        flash("Appointment Booked Successfully!")
+        return redirect(url_for("views.receptionist"))
+
+    return render_template("setPatientAppoi.html")
+
