@@ -203,7 +203,7 @@ class Record(db.Model):
     patientId = db.Column(
         db.Integer, db.ForeignKey("patient.id"), nullable=False
     )  # one to one.
-    progressNotes = db.relationship("ProgressNote", backref="Record")
+    progressNotes = db.Column(db.String, nullable=False)
 
 
 class ProgressNote(db.Model):
