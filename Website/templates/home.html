@@ -1,36 +1,12 @@
 {% extends "base.html" %} {% block title %} Home {% endblock%} {% block content
 %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Home Page</title>
-        <style>
-       body {
-              background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(155, 185, 203));
-            }
-            .headerDiv {
-              font-family: Helvetica, Arial, sans-serif;
-              text-align: center;
-              font-size: 30px;
-              color:rgb(29, 51, 89);
-            }
-            .signOutButton{
-                height: 50px;
-                width: 150px;
-                font-size: 18px;
-                background-color: white;
-                color:rgb(29, 51, 89);
-                border-radius: 15px;
-            }
-            .signOutButton:hover{
-                background-color: rgb(29, 51, 89);
-                color: white;
-            }
-  
-       </style>
-    </head>
-    
+<br/><br/><br/>
+<h1><center>Welcome to Dentain!</center></h1>
+    <!-- <img class="img-logo" src="/Users/moha/Desktop/uOttawa/CSI2132/Project/CSI2132_Project/Images/logo.jpeg"> Doesnt work -->
+<br/><br/>
+
+<body>
   <button
     class="btn btn-primary btn-lg btn-block"
     onclick="window.location.href = '/signup'">
@@ -42,13 +18,5 @@
     onclick="window.location.href = '/login'">
     Login
   </button>
-  
 </body>
-        <div class="headerDiv">
-            <h2>WELCOME TO DENTAIN!</h3>
-              <form action="http://127.0.0.1:5000/login">
-                <button type="submit" class="signOutButton">Sign Out</button>
-            </form>
-        </div>
-
 {% endblock %}
