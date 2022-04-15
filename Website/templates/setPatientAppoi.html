@@ -1,9 +1,8 @@
-{% extends "base.html" %} {% block title %} Set Patient Appointment {% endblock%} {% block
-    content %}
+{% extends "base.html" %} 
     <h1>Set Patient Appointment</h1>
 
-
     <body>
+
         <form action="SEND ADDRESS" id="ft-form" method="POST" accept-charset="UTF-8">
             <fieldset>
               <legend>Set Up Patient's Appointment</legend>
@@ -58,9 +57,16 @@
             </fieldset>
             <div class="btns">
               <input type="text" name="_gotcha" value="" style="display:none;">
-              <input type="submit" value="Book appointment">
+              <input type="submit" value="Book Appointment">
             </div>
           </form>
+          
+          <style>
+            body {
+              background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(155, 185, 203));
+            }
+
+<style>
 </body>
 
 {% endblock %}
