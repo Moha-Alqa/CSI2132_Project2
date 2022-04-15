@@ -87,14 +87,15 @@ CREATE TABLE Fee_Charge(
 
 CREATE TABLE Tooth(
 	Tooth_name VARCHAR(100) NOT NULL,
-    Treatment_ID int(9) NOT NULL
+    Treatment_ID int(9) NOT NULL,
 	FOREIGN KEY(Treatment_ID) REFERENCES Treatment(Treatment_ID)
     );
 
 CREATE TABLE `Comment`(
 	Comment_ID int(9) PRIMARY KEY,
     `Text` varchar(100),
-    Treatment_ID int(9) NOT NULL
+    Treatment_ID int(9) NOT NULL,
+	FOREIGN KEY(Treatment_ID) REFERENCES Treatment(Treatment_ID)
 );
     
 
@@ -147,7 +148,7 @@ CREATE TABLE Invoice(
 CREATE TABLE ProgressNote(
     Note_ID int PRIMARY KEY,
     Note VARCHAR(100) NOT NULL,
-    Record_ID int(9) NOT NULL
+    Record_ID int(9) NOT NULL,
 	FOREIGN KEY(Record_ID) REFERENCES Record(Record_ID)
 );
 
