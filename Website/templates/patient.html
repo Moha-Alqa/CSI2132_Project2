@@ -1,145 +1,120 @@
-{% extends "base.html" %} 
-{% block title %} Patient {% endblock%} 
-{% block content %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Patient UI</title>
-        <style>
+{% extends "base.html" %} {% block title %} Set Patient Appointment {%
+endblock%} {% block content %}
 
-           body {
-              background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(155, 185, 203));
-            }
-            .header {
-              font-family: Helvetica, Arial, sans-serif;
-              text-align: center;
-              font-size: 30px;
-              color:rgb(29, 51, 89);
-            }
-            .buttons{
-                background-color:white;
-                border: 3px solid rgb(29, 51, 89);;
-                height: 100px;
-                width: 150px;
-                margin: 20px;
-                border-radius: 50%;
-                font-size: 22px;
-                transition-duration: 0.2s;
-            }
-            .buttons:hover{
-                background-color: rgb(29, 51, 89);
-                color: white;
-            }
-            .buttonForm{
-                display: flex;
-                justify-content: center;
-            }
-            .appointment {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                font-family: Helvetica, Arial, sans-serif; 
-                text-align: center;
-                font-size: 28px;
-                color:rgb(29, 51, 89);
-            }
-            .record {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                font-family: Helvetica, Arial, sans-serif; 
-                text-align: center;
-                font-size: 28px;
-                color:rgb(29, 51, 89);
-            }
-            table, th, td{
-                border-collapse: collapse;
-                margin: 25px;
-                overflow: hidden;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            th, td{
-                padding: 10px;
-                text-align: center;
-                font-family: Helvetica, Arial, sans-serif;
-                border: 2px solid white;
-                color: rgb(29, 51, 89);
-                 
-            }
-            tr:nth-child(odd){
-                color: #ffffff;
-                border: 2px solid white;
-            }
-            th{
-                color: white;
-                background-color:rgb(29, 51, 89);
-                font-family: Helvetica, Arial, sans-serif;
-            }
-        </style>
-    </head>
-    <body>
-    </div>
-    <div class="header">
-        <h2>WELCOME TO PATIENT PAGE</h2>
-    </div>
-    <div class="buttonForm">
-        </form action="http://127.0.0.1:5000/login">
-            <button type="submit" class="buttons">Sign Out</button>
-        </form action="http://127.0.0.1:5000/setPatientAppoi">
-        <button type="submit" class="buttons">Make New Appointment</button>
-    </div>
-        <h1 class="appointment">UPCOMING APPOINTMENT(S)</h1>
-        <table>
-            <tr>
-                <th>Appointment ID</th>
-                <th>Patient ID</th>
-                <th>Dentist Identifier</th>
-                <th>Appointment Type</th>
-                <th>Status</th>
-                <th>Room Assigned</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>End time</th>
-                <th>Treatment</th>
-                <th>Fee Charge</th>
-            </tr>
-            {% if appt %}
-                {% for appt in appointmentRows %}
-                    <tr>
-                        <td>{{ appt.appointmentId }}</td>
-                        <td>{{ appt.patientId }}</td>
-                        <td>{{ appt.dentistIdentifier }}</td>
-                        <td>{{ appt.appointmentType }}</td>
-                        <td>{{ appt.status }}</td>
-                        <td>{{ appt.roomAssigned }}</td>
-                        <td>{{ appt.date }}</td>
-                        <td>{{ appt.startTime }}</td>
-                        <td>{{ appt.endTime }}</td>
-                        <td>{{ appt.treatment }}</td>
-                        <td>{{ appt.feeCharge }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-        </table>
+<style>
+  body {
+    background-image: linear-gradient(
+      to right,
+      rgb(255, 255, 255),
+      rgb(155, 185, 203)
+    );
+  }
+  .header {
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    font-size: 32px;
+    color: rgb(29, 51, 89);
+  }
+  .buttons {
+    height: 50px;
+    width: 150px;
+    font-size: 18px;
+    background-color: white;
+    color: rgb(29, 51, 89);
+    border-radius: 15px;
+  }
+  .buttons:hover {
+    background-color: rgb(29, 51, 89);
+    color: white;
+  }
+  legend,
+  label {
+    font-family: Helvetica, Arial, sans-serif;
+    color: rgb(29, 51, 89);
+    font-size: 20px;
+  }
+  input {
+    font-family: Helvetica, Arial, sans-serif;
+    color: grey;
+    font-size: 18px;
+  }
+  p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgb(29, 51, 89);
+    font-style: italic;
+  }
+</style>
+
+<h1 class="header">PATIENT APPOINTMENT</h1>
+<body>
+  <form action="SEND ADDRESS" id="ft-form" method="POST" accept-charset="UTF-8">
+    <fieldset>
+      <legend>Set Up Patient's Appointment</legend>
+      <div class="two-cols">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required />
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required /><br />
+        <br />
+      </div>
+      <div class="two-cols">
+        <label for="emails">Email Address:</label>
+        <input type="email" id="email" name="email" required />
+        <label>
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" required />
+        </label>
+      </div>
+      <br />
+      <div class="two-cols">
+        <label>
+          Date
+          <input type="date" name="Appointment request" required />
+        </label>
+        <br />
+        <div class="inline">
+          <label for="appt">Choose a Start Time:</label>
+          <input
+            type="time"
+            id="appt"
+            name="appt"
+            min="09:00"
+            max="17:00"
+            required
+          />
+          <label for="appt">Choose a End Time:</label>
+          <input
+            type="time"
+            id="appt"
+            name="appt"
+            min="10:00"
+            max="18:00"
+            required
+          />
         </div>
-            <h1 class="record">YOUR PATIENT RECORDS</h1>
-            <table>
-                <tr> 
-                    <th>Record ID</th>
-                    <th>Date </th>
-                    <th>Patient ID</th>
-                    <th>Progress Notes</th>
-                </tr>
-                {% if rec %}
-                    {% for rec in recordRows %}
-                        <tr>
-                            <td>{{ rec.recordId}}</td>
-                            <td>{{ rec.dateEdited }}</td>
-                            <td>{{ rec.patientID }}</td>
-                            <td>{{ rec.progressNotes }}</td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-            </table>
-    </body>
-</html>
+      </div>
+      <p>Confirmation Requested by</p>
+      <div class="inline">
+        <label>
+          <input
+            type="radio"
+            name="Confirmation requested by"
+            value="email"
+            checked
+          />
+          Email
+        </label>
+        <label>
+          <input type="radio" name="Confirmation requested by" value="phone" />
+          Phone Call
+        </label>
+      </div>
+    </fieldset>
+    <div>
+      <button type="submit" class="buttons">Book Appointment</button>
+    </div>
+  </form>
+</body>
+
 {% endblock %}
