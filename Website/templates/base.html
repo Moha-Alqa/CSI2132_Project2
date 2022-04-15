@@ -29,13 +29,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-         <!-- {% if is_authenticated %} will use this code once database information is added to models.py so that we may modify auth.py-->
+         {% if user.is_authenticated %} 
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          <!-- {% else %} will use this code once database information is added to models.py so that we may modify auth.py-->
+          {% else %} 
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/signup">Sign Up</a>
-          <!-- {% endif %} will use this code once database information is added to models.py so that we may modify auth.py-->
+          {% endif %}
         </div>
       </div>
     </nav>

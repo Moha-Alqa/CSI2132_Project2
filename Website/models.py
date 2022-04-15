@@ -2,7 +2,7 @@ from email.policy import default
 from . import db
 
 # from flask import UserMixin
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user, login_required, login_user, logout_user
 from sqlalchemy import func
 
 ## TO DO
@@ -99,7 +99,7 @@ class Appointment(db.Model):
     treatments = db.relationship("Treatment", backref="appointment")
     feeCharge = db.relationship("FeeCharge", backref="appointment", uselist=False)
     patientUsername = db.Column(
-        db.Integer, db.ForeignKey("patient.username"), nullable=False
+        db.String(30), db.ForeignKey("patient.username"), nullable=False
     )  # one to many. Referncing to classes in foreignKey relationship, we use lower case name of class
     # Patient name can be accessed through FK referncing
     dentistIdneitifier = db.Column(

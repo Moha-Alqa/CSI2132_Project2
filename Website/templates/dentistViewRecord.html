@@ -1,0 +1,116 @@
+{% extends "base.html" %} 
+{% block title %} Dentist View Record {% endblock%} 
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dentist View Record</title>
+        <style>
+
+           body {
+              background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(155, 185, 203));
+            }
+            .header {
+              font-family: Helvetica, Arial, sans-serif;
+              text-align: center;
+              font-size: 30px;
+              color:rgb(29, 51, 89);
+            }
+            .buttons{
+                background-color:white;
+                border: 3px solid rgb(29, 51, 89);;
+                height: 100px;
+                width: 150px;
+                margin: 20px;
+                border-radius: 50%;
+                font-size: 22px;
+                transition-duration: 0.2s;
+            }
+            .buttons:hover{
+                background-color: rgb(29, 51, 89);
+                color: white;
+            }
+            .buttonForm{
+                display: flex;
+                justify-content: center;
+            }
+            .record {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            table, th, td{
+                border-collapse: collapse;
+                margin: 25px;
+                overflow: hidden;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
+            }
+            table.center {
+                margin-left:auto; 
+                margin-right:auto;
+             }
+            th, td{
+                padding: 10px;
+                text-align: center;
+                font-family: Helvetica, Arial, sans-serif;
+                border: 2px solid white;
+                color: rgb(29, 51, 89);
+                justify-content: center;
+                 
+            }
+            tr:nth-child(odd){
+                color: #ffffff;
+                border: 2px solid white;
+                justify-content: center;
+            }
+            th{
+                color: white;
+                background-color:rgb(29, 51, 89);
+                font-family: Helvetica, Arial, sans-serif;
+                justify-content: center;
+                
+            }
+        </style>
+    </head>
+    <body>
+    </div>
+    <div class="header">
+        <h2>DENTIST PAGE: VIEW PATIENT RECORDS</h2>
+    </div>
+    <div class="buttonForm">
+        </form action="http://127.0.0.1:5000/login">
+            <button type="submit" class="buttons">Sign Out</button>
+        </form action="http://127.0.0.1:5000/dentist">
+            <button type="submit" class="buttons">Go Back</button>
+    </div>
+        <h1 class="record">YOUR PATIENT RECORDS</h1>
+        <table>
+            <tr> 
+                <th>Record ID</th>
+                <th>Date </th>
+                <th>Patient ID</th>
+                <th>Progress Notes</th>
+            </tr>
+            {% if rec %}
+                {% for rec in recordRows %}
+                    <tr>
+                        <td>{{ rec.recordId}}</td>
+                        <td>{{ rec.dateEdited }}</td>
+                        <td>{{ rec.patientID }}</td>
+                        <td>{{ rec.progressNotes }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </body>
+</html>
+
+
+
+    {% endblock %}
