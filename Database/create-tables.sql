@@ -81,7 +81,8 @@ CREATE TABLE Fee_Charge(
     Total_charge decimal(9,2) NOT NULL,
     Bill_ID int(9) NOT NULL,
 	Appointment_ID int(9) NOT NULL,
-    FOREIGN KEY(Appointment_ID) REFERENCES Appointment(Patient_ID)
+    FOREIGN KEY(Appointment_ID) REFERENCES Appointment(Patient_ID),
+	FOREIGN KEY(Bill_ID) REFERENCES Payment(Bill_ID)
 );
 
 CREATE TABLE Tooth(
