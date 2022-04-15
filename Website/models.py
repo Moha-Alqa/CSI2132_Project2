@@ -71,12 +71,13 @@ class Employee(db.Model, UserMixin):
     worksInBranch = db.Column(
         db.Integer, db.ForeignKey("branch.branchId")
     )  # many to one
+    appointments = db.relationship("Appointment", backref="employee") # many to one
 
 
 class Branch(db.Model):
     branchId = db.Column(db.Integer, primary_key=True)
     employeesNum = db.Column(db.Integer, nullable=False, default=0)
-    houseNum = db.Column(db.String(30), nullable=False)
+    branchName = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
     city = db.Column(db.String(30), nullable=False)
     province = db.Column(db.String(30), nullable=False)
@@ -89,21 +90,21 @@ class Branch(db.Model):
 class Appointment(db.Model):
     appointmentId = db.Column(db.Integer, primary_key=True)
     branch = db.Column(db.String(30), nullable=False)
-    dentistIdentifier = db.Column(
-        db.String(30), nullable=False
-    )  # Maybe int? not sure if thats id or what
     appointmentType = db.Column(db.String(30), nullable=False)
     status = db.Column(db.String(20), nullable=False)
     roomAssigned = db.Column(db.String(20), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date)
     startTime = db.Column(db.Time)
     endTime = db.Column(db.Time)
-    treatment = db.relationship("Treatment", backref="appointment")
+    treatments = db.relationship("Treatment", backref="appointment")
     feeCharge = db.relationship("FeeCharge", backref="appointment", uselist=False)
-    patientId = db.Column(
-        db.Integer, db.ForeignKey("patient.id"), nullable=False
+    patientUsername = db.Column(
+        db.Integer, db.ForeignKey("patient.username"), nullable=False
     )  # one to many. Referncing to classes in foreignKey relationship, we use lower case name of class
     # Patient name can be accessed through FK referncing
+    dentistIdneitifier = db.Column(
+        db.Integer, db.ForeignKey("employee.id")
+    )  # one to many
 
 
 class Invoice(db.Model):
@@ -145,7 +146,7 @@ class Payment(db.Model):
 class Review(db.Model):
     reviewId = db.Column(db.Integer, primary_key=True)
     employeeProfessionalism = db.Column(db.String(100))
-    value = db.Column(db.String(100))
+    vlaue = db.Column(db.String(100))
     communication = db.Column(db.String(100))
     cleanliness = db.Column(db.String(100))
     patientId = db.Column(
@@ -157,7 +158,7 @@ class Procedure(db.Model):
     procedureID = db.Column(db.Integer, primary_key=True)
     procedureType = db.Column(db.String(50), nullable=False)
     procedureDescription = db.Column(db.String(50), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.Date)
     treatmentId = db.Column(
         db.Integer, db.ForeignKey("treatment.treatmentId"), nullable=False
     )  # one to one
@@ -203,7 +204,7 @@ class Record(db.Model):
     patientId = db.Column(
         db.Integer, db.ForeignKey("patient.id"), nullable=False
     )  # one to one.
-    progressNotes = db.Column(db.String, nullable=False)
+    progressNotes = db.relationship("ProgressNote", backref="Record")
 
 
 class ProgressNote(db.Model):
@@ -211,21 +212,3 @@ class ProgressNote(db.Model):
     note = db.Column(db.String(150), nullable=False)
     recordId = db.Column(db.Integer, db.ForeignKey("record.recordId"))  # many to one
 
-
-# def populate():
-#     with app.app_context():
-#         p1 = Patient(id='1', username='Joo', email="jooo@gmail.com", password='123', firstName="John", lastName="Mashlov", phoneNum=98876555, SSN=124456, role="Patient", insurance="abcInsurance", age=22, gender="Male", houseNum="435/22", street="Kingstons street", province="Ontorio", city="Ottawa")
-#         db.session.add(p1)
-#         db.session.commit()
-#         print("User added")
-
-# if __name__ == '__main__':
-#     # The creation starts here.
-#     # the same can be done by creating an create_engine object.
-#     # example:
-#     # from sqlalchemy import create_engine
-#     # engine = create_engine()
-#     # if not engine.has_table(tablename)
- 
-    # inserting new information about Members
-    # A new member name John
