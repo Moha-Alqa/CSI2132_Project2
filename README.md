@@ -1,6 +1,11 @@
 # CSI 2132 Project
 
-Dental Clinic Management System used for evaluation in CSI 2132 2022
+Dental Clinic Management System used for evaluation in CSI 2132 2022.
+
+# Notes
+
+- Populating of the relationships can be viwed from Website/__init__.py at the end of the file.
+- Queries of the relationships can be viwed from Website/__init__.py at the end of the file.
 
 ## Students
 
