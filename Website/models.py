@@ -27,7 +27,7 @@ class Patient(db.Model, UserMixin):
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     # dob = db.Column(db.Date, nullable=True)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     gender = db.Column(db.String(10), nullable=False)
     houseNum = db.Column(db.String(30), nullable=False)
     street = db.Column(db.String(30), nullable=False)
@@ -58,7 +58,7 @@ class Employee(db.Model, UserMixin):
     role = db.Column(db.String(30), nullable=False)
     insurance = db.Column(db.String(50))
     salary = db.Column(db.Numeric(2), default=0.00)
-    age = db.Column(db.Numeric(2))
+    age = db.Column(db.Integer)
     # dob = db.Column(db.Date, nullable=True)
     # signUpDate = db.Column(db.Date, default=func.now())   Automaticall creates dates of for us
     gender = db.Column(db.String(10), nullable=False)
@@ -210,3 +210,22 @@ class ProgressNote(db.Model):
     noteId = db.Column(db.Integer, primary_key=True)
     note = db.Column(db.String(150), nullable=False)
     recordId = db.Column(db.Integer, db.ForeignKey("record.recordId"))  # many to one
+
+
+# def populate():
+#     with app.app_context():
+#         p1 = Patient(id='1', username='Joo', email="jooo@gmail.com", password='123', firstName="John", lastName="Mashlov", phoneNum=98876555, SSN=124456, role="Patient", insurance="abcInsurance", age=22, gender="Male", houseNum="435/22", street="Kingstons street", province="Ontorio", city="Ottawa")
+#         db.session.add(p1)
+#         db.session.commit()
+#         print("User added")
+
+# if __name__ == '__main__':
+#     # The creation starts here.
+#     # the same can be done by creating an create_engine object.
+#     # example:
+#     # from sqlalchemy import create_engine
+#     # engine = create_engine()
+#     # if not engine.has_table(tablename)
+ 
+    # inserting new information about Members
+    # A new member name John

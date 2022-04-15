@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 
+
 views = Blueprint("views", __name__)
 
 
@@ -23,7 +24,7 @@ def receptionist():
 def setPatientAppoi():
     return render_template("setPatientAppoi.html")
 
-@views.route("/patientInfo") # syntax error
+@views.route("/patientInfo") 
 def patientInfo():
     return render_template("patientInfo.html")
 
