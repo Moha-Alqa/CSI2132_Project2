@@ -1,119 +1,163 @@
-{% extends "base.html" %} {% block title %} Dentist {% endblock%} {% block
-  content %}
+{% extends "base.html" %} 
+{% block title %} Dentist {% endblock%} 
+{% block content %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dentist UI</title>
+        <title>Dentist</title>
         <style>
 
-            body {
-              background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(155, 185, 203));
+           body {
+              background-image: linear-gradient(to left, rgb(255, 255, 255), rgb(155, 185, 203));
             }
-            .topnav {
-              overflow: hidden;
-            }
-            .topnav a {
-              float: left;
-              display: block;
-              color: black;
-              text-align: center;
-              padding: 14px 16px;
-              text-decoration: none;
-              font-size: 17px;
-            }
-
-            .topnav a:hover {
-              color: black;
-            }
-
-            .topnav a.active {
-              background-color: #2196F3;
-              color: white;
-            }
-
-            .topnav input[type=text] {
-              float: right;
-              padding: 6px;
-              margin-top: 8px;
-              margin-right: 16px;
-              border: none;
-              font-size: 17px;
-            }
-
-            @media screen and (max-width: 600px) {
-              .topnav a, .topnav input[type=text] {
-                float: none;
-                display: block;
-                text-align: left;
-                width: 100%;
-                margin: 0;
-                padding: 14px;
-              }
-
-              .topnav input[type=text] {
-                border: 1px solid #ccc;
-              }
-            }
-            .headerDiv {
+            .header {
               font-family: Helvetica, Arial, sans-serif;
               text-align: center;
               font-size: 30px;
               color:rgb(29, 51, 89);
+              font-weight: bold;
             }
-  
-            .buttonDiv{
-                padding: 40px;
-                display: flex;
-                justify-content: center;
-            }
-            .signOutButton{
-                height: 50px;
-                width: 150px;
-                font-size: 18px;
-                background-color: white;
-                color:rgb(29, 51, 89);
-                border-radius: 15px;
-            }
-            .signOutButton:hover{
-                background-color: rgb(29, 51, 89);
-                color: white;
-            }
-            .optionButton{
-                background-color: rgb(238, 246, 255);
+            .buttons{
+                background-color:white;
                 border: 3px solid rgb(29, 51, 89);;
-                height: 190px;
-                width: 220px;
+                height: 100px;
+                width: 150px;
                 margin: 20px;
                 border-radius: 50%;
                 font-size: 22px;
-                transition-duration: 0.1s;
+                transition-duration: 0.2s;
             }
-            .optionButton:hover{
+            .buttons:hover{
                 background-color: rgb(29, 51, 89);
                 color: white;
+            }
+            .buttonForm{
+                display: flex;
+                justify-content: center;
+            }
+            .appointment {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            .procedure {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            .record {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-family: Helvetica, Arial, sans-serif; 
+                text-align: center;
+                font-size: 28px;
+                color:rgb(29, 51, 89);
+            }
+            table, th, td{
+                border-collapse: collapse;
+                margin: 25px;
+                overflow: hidden;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            th, td{
+                padding: 10px;
+                text-align: center;
+                font-family: Helvetica, Arial, sans-serif;
+                border: 2px solid white;
+                color: rgb(29, 51, 89);
+                 
+            }
+            tr:nth-child(odd){
+                color: #ffffff;
+                border: 2px solid white;
+            }
+            th{
+                color: white;
+                background-color:rgb(29, 51, 89);
+                font-family: Helvetica, Arial, sans-serif;
             }
         </style>
     </head>
     <body>
+    </div>
+    <div class="header">
+        <h2>DENTIST PAGE</h2>
+    </div>
+    <div class="buttonForm">
+        </form action="http://127.0.0.1:5000/login">
+            <button type="submit" class="buttons">Sign Out</button>
+    </div>
+        <h1 class="appointment">UPCOMING APPOINTMENT(S)</h1>
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient ID</th>
+                <th>Dentist Identifier</th>
+                <th>Appointment Type</th>
+                <th>Status</th>
+                <th>Room Assigned</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End time</th>
+                <th>Treatment</th>
+                <th>Fee Charge</th>
+            </tr>
+                {% for appt in user.appointments %}
+                    <tr>
+                        <td>{{ appt.appointmentId }}</td>
+                        <td>{{ appt.patientUsername }}</td>
+                        <td>{{ appt.dentistIdentifier }}</td>
+                        <td>{{ appt.appointmentType }}</td>
+                        <td>{{ appt.status }}</td>
+                        <td>{{ appt.roomAssigned }}</td>
+                        <td>{{ appt.date }}</td>
+                        <td>{{ appt.startTime }}</td>
+                        <td>{{ appt.endTime }}</td>
+                        <td>{{ appt.treatment }}</td>
+                        <td>{{ appt.feeCharge }}</td>
+                    </tr>
+                {% endfor %}
+        </table>
 
-      <div class="topnav">
-          <form onclick="window.location.href = '/dentistViewRecord'">
-            <input type="text" placeholder="Search Patient...">
-        </form>
-      </div>
-        <div class="headerDiv">
-            <h2>WELCOME TO DENTIST PAGE</h3>
-              <form action="http://127.0.0.1:5000/login">
-                <button type="submit" class="signOutButton">Sign Out</button>
-            </form>
-        </div>
-        <div class="buttonDiv">
-            </form onclick="window.location.href = '/dentistViewAppointment'">
-                <button type="submit" class="optionButton">Upcoming Appointments</button>
-            </form onclick="window.location.href = '/dentistViewProcedure'">
-                <button type="submit" class="optionButton">Appointment Procedures</button>
-        </div>
+        <h1 class="procedure">UPCOMING PROCEDURES</h1>
+        <table>
+            <tr>
+                <th>Procedure ID</th>
+                <th>Procedure Type</th>
+                <th>Procedure Description</th>
+            </tr>
+                {% for proc in user.procedures %}
+                    <tr>
+                        <td>{{ proc.procedureId}}</td>
+                        <td>{{ proc.procedureType }}</td>
+                        <td>{{ proc.procedureDescription }}</td>
+                    </tr>
+            {% endfor %}
+        </table>
+        <h1 class="record">YOUR PATIENT RECORDS</h1>
+        <table>
+            <tr> 
+                <th>Record ID</th>
+                <th>Date </th>
+                <th>Progress Notes</th>
+            </tr>
+            {% for rec in user.record %}
+                <tr>
+                    <td>{{ rec.recordId }}</td>
+                    <td>{{ rec.dateEdited }}</td>
+                    <td>{{ rec.progressNotes.note }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
-
 {% endblock %}
+message.txt
+6 KB

@@ -47,12 +47,14 @@ def login():
 
             if user:
                 if check_password_hash(user.password, password) and role == "Dentist":
+                    login_user(user, remember=True)
                     flash("Logged in successfully")
                     return redirect(url_for("views.dentist"))
                 elif (
                     check_password_hash(user.password, password)
                     and role == "Receptionist"
                 ):
+                    login_user(user, remember=True)
                     flash("Logged in successfully")
                     return redirect(url_for("views.receptionist"))
                 else:
@@ -221,4 +223,3 @@ def setPatientAppoi():
         return redirect(url_for("views.receptionist"))
 
     return render_template("setPatientAppoi.html")
-
